@@ -3,7 +3,7 @@
 <https://usf-cs360-spring2020.github.io/template-bulma/>
 
 ![Profile Image](profile.png) <br>
-**Group Name:** Datalization
+**Group Name:** Datalization <br>
 **Group Members:** Kate Luo, Jake Zhong, Ian Granger 
 **Email:** <username@dons.usfca.edu>
 
