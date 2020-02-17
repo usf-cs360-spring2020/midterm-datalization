@@ -125,7 +125,57 @@
 
         <h2 id="data">Data</h2>
 
-        <p>Include some detailed information about the dataset here. You should <a href="#">add a link</a> to the original dataset. You might also want to quote the license:</p>
+        <ul>
+            <li><h4>Fire Departmemt</h4>
+              <p>Today, the San Francisco Fire Department serves an estimated 1.5 million people, providing fire suppression and emergency medical services to the residents,
+              visitors and workers within San Francisco's 49 square miles.</p></li>
+              <br>
+              <li><h4>DataSet</h4>
+                  <ul>
+                    <li><strong>About</strong>
+                      <p>Fire Calls-For-Service <a href="https://data.sfgov.org/Public-Safety/Fire-Department-Calls-for-Service/nuek-vuh3">(The link)</a> includes all fire units responses to calls. Each record includes the call number, incident number, address, unit identifier, call type, and disposition. All relevant time intervals are also included.</p>
+                      <p>Because this dataset is based on responses, and since most calls involved multiple units, there are multiple records for each call number.
+                        Addresses are associated with a block number, intersection or call box, not a specific address.</p>
+                    </li>
+                    <br>
+                    <li>
+                        <strong>Data size</strong>
+                        <p>There are 5.21M rows and 34 columns data. Each row is a response. </p>
+                    </li>
+                    <br>
+                    <li>
+                      <strong>Data license</strong>
+                      <br>
+                        <blockquote>
+                          <p>
+                            "This data is made available under the Public Domain Dedication and License v1.0 whose full text can be found at: <a href="http://www.opendatacommons.org/licenses/pddl/1.0/">www.opendatacommons.org/licenses/pddl/1.0/</a>"
+                          </p>
+                          <cite>Click<a href="https://opendatacommons.org/licenses/pddl/1.0/"> here </a>to read dataset license informaiton.</cite>
+                        </blockquote>
+                    </li>
+                    <br>
+                    <li>
+                      <strong>Column Description</strong>
+                      <ol>
+                        <li><strong>Call Number:</strong> A unique 9-digit number assigned by the 911 Dispatch Center (DEM) to this call. These number are used for both Police and Fire calls.</li>
+
+                        <li><strong>Call Type Groups:</strong> Call types are divided into four main groups: Fire, Alarm, Potential Life Threatening and Non Life Threatening.</li>
+
+                        <li><strong>Box:</strong> Fire box associated with the address of the incident. A box is the smallest area used to divide the City. Each box is associated with a unique unit dispatch order. The City is divided into more than 2,400 boxes.</li>
+
+                        <li><strong>Location:</strong> Latitude and longitude of address obfuscated either to the midblock, intersection or call box.</li>
+                      </ol>
+                    </li>
+                    <br>
+
+                  </ul>
+              </li>
+        </ul>
+
+
+        <br>
+        <p>Include some detailed information about the dataset here.
+          You should <a href="#">add a link</a> to the original dataset. You might also want to quote the license:</p>
 
         <blockquote>
           <p>
