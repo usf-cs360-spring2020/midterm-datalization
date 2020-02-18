@@ -1,433 +1,187 @@
+
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- TODO: Change title -->
-    <title>Website Template</title>
-
-    <!-- Load Bulma from CDN (consider saving it to repository instead) -->
-    <!-- https://bulma.io/ -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-
-    <!-- Load Font Awesome 5 (free) icons -->
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-  </head>
-
-  <body>
-
-  <!-- Page header -->
-  <!-- https://bulma.io/documentation/layout/hero/ -->
-  <section class="hero is-primary is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <!-- TODO: Change title -->
-        <h1 class="title">Website Title</h1>
-        <!-- TODO: Change subtitle -->
-        <h2 class="subtitle">Website Subtitle</h2>
-      </div>
-    </div>
-  </section>
-  <!-- End page header -->
-
-  <!-- Page navigation -->
-  <!-- https://bulma.io/documentation/components/navbar/ -->
-  <nav class="navbar is-light" role="navigation" aria-label="main navigation">
-    <div class="container">
-      <div class="navbar-brand">
-        <!-- TODO: Change link to repository homepage if needed -->
-        <!-- TODO: Change which navbar-item is-active if needed -->
-        <a class="navbar-item is-active" href="index.html">
-          <span class="icon"><i class="fas fa-home"></i></span>
-          <span>Home</span>
-        </a>
-
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-menu">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-
-      <div id="main-menu" class="navbar-menu has-text-weight-medium">
-        <!-- Left navbar items -->
-        <div class="navbar-start">
-          <a class="navbar-item" href="#data" title="Data">
-            <span class="icon"><i class="fas fa-table"></i></span>
-            <span>Data</span>
-          </a>
-
-          <!-- TODO: Modify or remove dropdown -->
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              Visualizations
-            </a>
-
-            <div class="navbar-dropdown">
-              <a class="navbar-item">
-                <span class="icon"><i class="fas fa-chart-line"></i></span>
-                <span>Line Chart</span>
-              </a>
-              <a class="navbar-item">
-                <span class="icon"><i class="fas fa-chart-area"></i></span>
-                <span>Area Chart</span>
-              </a>
-
-              <hr class="navbar-divider">
-
-              <a class="navbar-item">
-                <span class="icon"><i class="fas fa-chart-bar"></i></span>
-                <span>Bar Chart</span>
-              </a>
-              <a class="navbar-item">
-                <span class="icon"><i class="fas fa-chart-pie"></i></span>
-                <span>Pie Chart</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right navbar items -->
-        <div class="navbar-end">
-          <!-- TODO: Update as needed -->
-          <a class="navbar-item" href="#about" title="About">
-            <span class="icon"><i class="fas fa-tasks"></i></span>
-            <span>Grade</span>
-          </a>
-
-          <a class="navbar-item" href="#about" title="About">
-            <span class="icon"><i class="fas fa-info-circle"></i></span>
-            <span>About</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </nav>
-  <!-- End page navigation -->
-
-  <section class="section">
-    <div class="container">
-      <!-- Begin page content -->
-      <div class="content">
-        <h1 class="title">
-          <!-- TODO: Change page title -->
-          Page Title
-        </h1>
-        <p class="subtitle">
-          <!-- TODO: Change page subtitle -->
-          Page Subtitle
-        </p>
-
-        <p>This would be an excellent place to describe what this page is for, what to find in different sections, describe any motivation or theme behind your visualizations, and so on.</p>
-
-        <p>You should not use this template unless you intend to customize it. Make it your own. Keep in mind this simple template is over 300 lines! You can see other examples of websites using Bulma at their showcase: <a href="https://bulma.io/expo/">bulma.io/expo/</a>.</p>
-
-        <h2 id="data">Data</h2>
-
-        <ul>
-            <li><h4>Fire Departmemt</h4>
-              <p>Today, the San Francisco Fire Department serves an estimated 1.5 million people, providing fire suppression and emergency medical services to the residents,
-              visitors and workers within San Francisco's 49 square miles.</p></li>
-              <br>
-              <li><h4>DataSet</h4>
-                  <ul>
-                    <li><strong>About</strong>
-                      <p>Fire Calls-For-Service <a href="https://data.sfgov.org/Public-Safety/Fire-Department-Calls-for-Service/nuek-vuh3">(The link)</a> includes all fire units responses to calls. Each record includes the call number, incident number, address, unit identifier, call type, and disposition. All relevant time intervals are also included.</p>
-                      <p>Because this dataset is based on responses, and since most calls involved multiple units, there are multiple records for each call number.
-                        Addresses are associated with a block number, intersection or call box, not a specific address.</p>
-                    </li>
-                    <br>
-                    <li>
-                        <strong>Data size</strong>
-                        <p>There are 5.21M rows and 34 columns data. Each row is a response. </p>
-                    </li>
-                    <br>
-                    <li>
-                      <strong>Data license</strong>
-                      <br>
-                        <blockquote>
-                          <p>
-                            "This data is made available under the Public Domain Dedication and License v1.0 whose full text can be found at: <a href="http://www.opendatacommons.org/licenses/pddl/1.0/">www.opendatacommons.org/licenses/pddl/1.0/</a>"
-                          </p>
-                          <cite>Click<a href="https://opendatacommons.org/licenses/pddl/1.0/"> here </a>to read dataset license informaiton.</cite>
-                        </blockquote>
-                    </li>
-                    <br>
-                    <li>
-                      <strong>Column Description</strong>
-                      <ol>
-                        <li><strong>Call Number:</strong> A unique 9-digit number assigned by the 911 Dispatch Center (DEM) to this call. These number are used for both Police and Fire calls.</li>
-
-                        <li><strong>Call Type Groups:</strong> Call types are divided into four main groups: Fire, Alarm, Potential Life Threatening and Non Life Threatening.</li>
-
-                        <li><strong>Box:</strong> Fire box associated with the address of the incident. A box is the smallest area used to divide the City. Each box is associated with a unique unit dispatch order. The City is divided into more than 2,400 boxes.</li>
-
-                        <li><strong>Location:</strong> Latitude and longitude of address obfuscated either to the midblock, intersection or call box.</li>
-                      </ol>
-                    </li>
-                    <br>
-
-                  </ul>
-              </li>
-        </ul>
-
-
-        <br>
-        <p>Include some detailed information about the dataset here.
-          You should <a href="#">add a link</a> to the original dataset. You might also want to quote the license:</p>
-
-        <blockquote>
-          <p>
-            "This data is made available under the Public Domain Dedication and License v1.0 whose full text can be found at: <a href="http://www.opendatacommons.org/licenses/pddl/1.0/">www.opendatacommons.org/licenses/pddl/1.0/</a>"
-          </p>
-          <cite>Put a citation here, possibly link to the dataset license information directly.</cite>
-        </blockquote>
-
-        <p>In addition to including a link to the source and license, you should describe the data. You might want a list of some sort to enumerate the different types of columns:</p>
-
-        <ol>
-          <li><strong>Column Name:</strong> Give a description of the column, including its type and possible range of values.</li>
-
-          <li><strong>Column Name:</strong> Give a description of the column, including its type and possible range of values.</li>
-
-          <li><strong>Column Name:</strong> Give a description of the column, including its type and possible range of values.</li>
-
-          <li><strong>Column Name:</strong> Give a description of the column, including its type and possible range of values.</li>
-        </ol>
-
-        <p>This will of course differ depending on the assignment and data.</p>
-
-        <h3 id="wrangling">Wrangling</h3>
-
-        <p>Perhaps you had to do some data wrangling to the original dataset to prepare it for visualization. This would be a great place to discuss some of that wrangling.
-
-        <pre>
-You can even put code into these pre blocks.
-  It will preserve whitespace.
-    That is helpful for formatted code.
-        </pre>
-
-        <p>You can alternatively embed a Gist if you want. There is an "embed" button on <a href="https://gist.github.com/octocat/6cad326836d38bd3a7ae">the Gist page</a> and results in something like this:</p>
-
-        <script src="https://gist.github.com/octocat/6cad326836d38bd3a7ae.js"></script>
-
-        <h2 id="visualizations">Visualizations</h2>
-
-        <p>Ideally not everything would be on a single page like this example. Instead, you might want to put each section in its own webpage. You would need to carefully replicate the page template (with the header, navbar, and footer) and make the necessary updates. For example, you want the "About" navbar item to be considered active on an "About" web page.</p>
-
-        <p>For now this is just a demo. The buttons below do not go anywhere, but can be easily changed to link to different visualization pages.</p>
-
-        <p class="buttons">
-          <a class="button is-large is-success" href="#">
-            <span class="icon is-medium">
-              <i class="fas fa-chart-line"></i>
-            </span>
-            <span>Line Chart</span>
-          </a>
-
-          <a class="button is-large is-primary" href="#">
-            <span class="icon is-medium">
-              <i class="fas fa-chart-area"></i>
-            </span>
-            <span>Area Chart</span>
-          </a>
-
-          <a class="button is-large is-info" href="#">
-            <span class="icon is-medium">
-              <i class="fas fa-chart-bar"></i>
-            </span>
-            <span>Bar Chart</span>
-          </a>
-
-          <a class="button is-large is-link" href="#">
-            <span class="icon is-medium">
-              <i class="fas fa-chart-pie"></i>
-            </span>
-            <span>Pie Chart</span>
-          </a>
-        </p>
-
-        <!-- https://github.com/vega/vega-embed#basic-example -->
-        <p>It is possible to embed some visualizations directly here too. Here is <a href="https://github.com/vega/vega-embed#basic-example">an example</a> using Vega-Lite:</p>
-
-        <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
-
-        <div id="vis"></div>
-
-        <script type="text/javascript">
-        var spec = "https://raw.githubusercontent.com/vega/vega/master/docs/examples/bar-chart.vg.json";
-        vegaEmbed('#vis', spec).then(function(result) {
-          // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
-        }).catch(console.error);
-        </script>
-
-        <h4>Instructions</h4>
-
-        <p>You will likely need to include instructions on how to interpet and use the visualization. In the case above, if you click the three dots <i class="fas fa-ellipsis-h has-text-grey-light	"></i> above it will open a menu where you can either save the visualization to a SVG or PNG, or alternatively open it up in the online Vega Editor.</p>
-
-        <h4>Discussion</h4>
-
-        <p>You may also need other sections, like a discussion section, per-visualization section on data wrangling, and others. Because of the extra content and code visualizations take, it might be worthwhile to break up your pages into one home page and then one page per visualization.</p>
-
-        <span class="heading">Acknowledgements</span>
-
-        <p>
-          <a href="#">Link to insiration</a><br/>
-          <a href="#">Link to StackOverflow snippet</a>
-        </p>
-
-        <p class="is-6">
-          <em>Thanks to Person Name for their suggestion to do something with the visualization.</em>
-        </p>
-
-        <h2 id="grade">Grade</h2>
-
-        <!-- TODO: Remove custom style if no longer needed -->
-        <style>
-          table.grades tbody tr td:nth-child(1),
-          table.grades tbody tr td:nth-child(2) {
-            text-align: center;
-          }
-        </style>
-
-        <!-- TODO: Change or remove table -->
-        <!-- https://bulma.io/documentation/elements/table/ -->
-        <table class="table is-hoverable is-bordered grades">
-          <thead>
-            <tr>
-              <th>Letter</th>
-              <th>Done?</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>D</td>
-              <td><i class="has-text-success fas fa-check-circle"></i></td>
-              <td>Discussion of how this grade level was satisfied. Exactly how this section should look will depend on the assignment in question. There is no requirement for formatting in this way. This is just an example of what a table element might look like for this informaiton.</td>
-            </tr>
-
-            <tr>
-              <td>C</td>
-              <td><i class="has-text-success fas fa-check-circle"></i></td>
-              <td>Discussion of how this grade level was satisfied.</td>
-            </tr>
-
-            <tr>
-              <td>B</td>
-              <td><i class="has-text-warning far fa-check-circle"></i></td>
-              <td>Discussion of how this grade level was satisfied.</td>
-            </tr>
-
-            <tr>
-              <td>A</td>
-              <td><i class="has-text-danger fas fa-times-circle"></i></td>
-              <td>Discussion of how this grade level was not satisfied.</td>
-            </tr>
-          </tbody>
-
-        </table>
-
-        <h2 id="about">About</h2>
-
-        <!-- Profile box -->
-        <!-- https://bulma.io/documentation/layout/media-object/ -->
-        <article class="media">
-          <!-- TODO: Replace with profile photo -->
-          <figure class="media-left">
-            <p class="image is-128x128"><img class="is-rounded" src="profile.png"></p>
-          </figure>
-
-          <div class="media-content">
-            <div class="content">
-              <!-- TODO: Replace with contact information -->
-              <p>
-                <strong>Full Name</strong><br/>
-                CS Major, <a href="https://www.usfca.edu/">University of San Francisco</a><br/>
-                <em>Expected Graduation: 20??</em><br/>
-                <i class="fas fa-envelope"></i> <a href="mailto:username@dons.usfca.edu">username@dons.usfca.edu</a>
-              </p>
-
-              <!-- TODO: Replace with brief biography -->
-              <p>
-                Here is a brief bio about yourself. A good rule of thumb is to include at least one technical tidbit (favorite area or course within computer science), and one fun tidbit (such as loving dogs).
-              </p>
-
-              <!-- TODO: Replace or remove tags -->
-              <!-- https://bulma.io/documentation/elements/tag/ -->
-              <div class="heading">Skills</div>
-
-              <div class="tags">
-                <span class="tag">Python</span>
-                <span class="tag">C</span>
-                <span class="tag">Java</span>
-                <span class="tag">JavaScript</span>
-                <span class="tag">HTML</span>
-                <span class="tag">CSS</span>
-                <span class="tag">SVG</span>
-              </div>
-            </div>
-          </div>
-        </article>
-        <!-- End profile box -->
-
-      </div>
-      <!-- End page content -->
-    </div>
-  </section>
-
-  <!-- Page footer -->
-  <!-- https://bulma.io/documentation/layout/footer/ -->
-  <footer class="footer">
-    <div class="content has-text-centered is-size-7">
-      <p>
-        <a href="#top">
-          <span class="fas fa-arrow-up"></span>
-          <span class="has-text-weight-medium">Back to Top</span>
-        </a>
-      </p>
-
-      <p>
-        <!-- TODO: Change to link to your Github repository -->
-        <a href="https://github.com/usf-cs360-spring2020/template-bulma" class="button is-small" style="padding-left: 1em; padding-right: 1em;">
-          <i class="fab fa-github-alt"></i>&nbsp;<strong>Github</strong>
-        </a>
-
-        <a href="https://fontawesome.com/" class="button is-small" style="padding-left: 1em; padding-right: 1em;">
-          <i class="fab fa-font-awesome"></i>&nbsp;<strong>FontAwesome</strong>
-        </a>
-
-        <a href="https://bulma.io" class="button is-small">
-          <img src="https://bulma.io/images/made-with-bulma--semiblack.png" alt="Made with Bulma" width="128" height="24">
-        </a>
-      </p>
-    </div>
-  </footer>
-  <!-- End page footer -->
-
-  <!-- Mobile menu responsiveness -->
-  <!-- https://bulma.io/documentation/components/navbar/ -->
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-    if ($navbarBurgers.length > 0) {
-      $navbarBurgers.forEach( el => {
-        el.addEventListener('click', () => {
-          const target = el.dataset.target;
-          const $target = document.getElementById(target);
-          el.classList.toggle('is-active');
-          $target.classList.toggle('is-active');
-        });
-      });
-    }
-  });
-  </script>
-  <!-- End mobile menu responsiveness -->
-  </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CS360/560 Midterm: Datalization</title>
+
+        <!-- Required CSS files -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/barfiller.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="https://www.jq22.com/jquery/font-awesome.4.7.0.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+	<body>
+		<div class="preloader">
+			<span class="preloader-spin"></span>
+		</div>
+		<div class="site">
+			<header id="header">
+				<div class="container">
+					<div class="row">
+						<div class="col-6 col-sm-3 logo-column">
+							<h3><a href="index.html" class="logo">Datalization</a></h3>
+						</div>
+						<div class="col-6 col-sm-9 nav-column clearfix">
+							<nav id="menu" class="d-none d-lg-block">
+								<ul>
+									<li class="current-menu-item"><a href="index.html">Home</a></li>
+									<li><a href="dataset.html">Dataset</a></li>
+									<li class="has-child">
+										<a href="data.html">Data</a>
+										<ul class="sub-menu">
+											<li><a href="#"><i class="fa fa-bar-chart"></i> Bar Chart</a></li>
+											<li><a href="#"><i class="fa fa-pie-chart"></i> Pie Chart</a></li>
+											<li><a href="#"><i class="fa fa-area-chart"></i> Area Chart</a></li>
+											<li><a href="#"><i class="fa fa-line-chart"></i> Line Chart</a></li>
+										</ul>
+									</li>
+									<li><a href="team.html">Team</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</header>    
+			<main id="main">
+				<div class="hero-banner">
+					<div class="banner-bg" style="background-image: url(assets/img/home-banner.jpg)"></div>
+					<div class="container">
+						<div class="row">
+							<div class="slide-content">
+								<h2>We Are Datalization.</h2>
+								<p>We are a team built by CS Students at USF. This is a website for our midterm project and you can find out the original data we are going to use for this project in our dataset.</p>
+								<div class="slide-btn">
+									<a href="dataset.html" class="button">Learn More</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> 
+				<div class="about-area sp">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="about-content">
+									<h3>Our Goal</h3>
+									<p>Each group must determine a cohesive theme for the project. This could be an overall story that each visualization will help tell, or a broad question that each visualization will help answer in different ways.</p>
+									<p>Group communication and coordination will be key. While each visualization page will be worked on individually, the visualizations should complement each other and support the theme. The group project score will consider how cohesive the theme is across the entire project, and the individual project score will consider how well the visualization(s) support the theme.</p>
+									<p>Beyond having a cohesive story or question, the encodings and styles should also be kept as consistent as possible across visualizations. For example, use the same color encoding for categories throughout the entire project.</p>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="about-img">
+									<img src="assets/img/goal.jpg" alt="">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="about-area sp">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="about-img">
+									<img src="assets/img/data/passenger-count-geo-region.png" alt="">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="about-content">
+									<h3>Visualizations</h3>
+									<p>Each group must produce at least one unique interactive multi-component visualization page per person using D3.js version 5 (using older versions will not receive full credit). Visualizations should be both informative and aesthetically pleasing. The individual components on the visualization page should have their interactivity linked. For example, highlighting a category in one component should highlight that same category in all components.</p>
+									<p>Keep the required screen space to view your visualizations within 1440 x 900 pixels. These are maximums; your visualizations do not need to take up that entire space and do not need to have that aspect ratio. Your visualizations do not need to be responsive to the browser size.</p>
+									<a href="data.html" class="button">Learn about</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="about-area sp">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="about-content">
+									<h3>Our Team</h3>
+									<p>Team names, including at least first name or nickname, optionally last name.</p>
+									<p>Team profile photos (should be professional, but can still be fun).</p>
+									<a href="team.html" class="button">Learn about</a>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="about-img">
+									<img src="assets/img/team.jpg" alt="">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+			<footer>
+				<div class="footer-top">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12 col-lg-6 footer_widget">
+								<div class="inner">
+									<h4>About</h4>
+									<p>Each group must determine a cohesive theme for the project. This could be an overall story that each visualization will help tell, or a broad question that each visualization will help answer in different ways.</p>
+								</div>
+							</div>
+							<div class="col-md-12 col-lg-6 footer_widget">
+								<div class="inner">
+									<h4>Credits</h4>
+									<ul>
+										<li><a href="https://www.themeum.com" target="_blank">Theme: Flat Theme</a></li>
+										<li><a href="https://getbootstrap.com/" target="_blank">Framework: Bootstrap</a></li>
+										<li><a href="https://www.freepik.com" target="_blank">Images: freepik</a></li>
+										<li><a href="https://unsplash.com/" target="_blank">Images: Unsplash</a></li>
+										<li><a href="https://fontawesome.com" target="_blank">Icon: FontAwesome</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="copyright-txt">
+									Copyright &copy; 2020.Datalization All rights reserved.
+								</div>
+							</div>
+							<div class="col-lg-6 text-right">
+								<div class="footer-nav">
+									<a href="index.html">Home</a>
+									<a href="dataset.html">Dataset</a>
+									<a href="data.html">Data</a>
+									<a href="team.html">Team</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+
+		<!--Required JS files-->
+	<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script src="assets/js/vendor/popper.min.js"></script>
+	<script src="assets/js/vendor/bootstrap.min.js"></script>
+	<script src="assets/js/vendor/owl.carousel.min.js"></script>
+	<script src="assets/js/vendor/isotope.pkgd.min.js"></script>
+	<script src="assets/js/vendor/jquery.barfiller.js"></script>
+	<script src="assets/js/vendor/loopcounter.js"></script>
+	<script src="assets/js/vendor/slicknav.min.js"></script>
+	<script src="assets/js/active.js"></script>
+
+	</body>
 
 </html>
