@@ -1280,7 +1280,7 @@ html {
 	top: 0;
 	left: 0;
 	width: 100%;
-	z-index: 1000;
+	z-index: 100;
 }
 .logo {
 	color: #fff;
@@ -1301,6 +1301,7 @@ html {
 	line-height: 34px;
 	font-weight: 300;
 	z-index: 0;
+	color: #1f2131;
 }
 .hero-banner h2 {
 	font-size: 50px;
@@ -1357,4 +1358,35 @@ html {
 	counter-increment: li;
 	position: absolute;
 	left: 0;
+}
+
+.chart-container img {
+	width: 100%;
+}
+
+.top-space {
+	margin-top: 25px;
+}
+
+.bottom-space {
+	margin-bottom: 25px;
+}
+.divider {
+	display: block;
+	margin: 25px 0;
+}
+@media screen and (max-width: 900px) {
+	#header {
+		position: relative;
+		height: auto;
+		padding: 12px 0;
+	}
+	.page-title {
+		margin-top: 0;
+	}
+	.hero-banner {
+		padding-top: 0;
+		min-height: 0;
+		padding: 100px 20px;
+	}
 }
