@@ -1375,6 +1375,9 @@ html {
 	display: block;
 	margin: 25px 0;
 }
+.section-title.left {
+	text-align: left;
+}
 @media screen and (max-width: 900px) {
 	#header {
 		position: relative;
