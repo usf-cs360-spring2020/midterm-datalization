@@ -60,13 +60,13 @@
 			</div>
 			<div class="about-area sp">
 				<div class="container content-main">
-					<h2>Prototyle</h2>
-					<h4>The averge response time for emergencies 2010-2019</h4>
+					<h2>Prototype</h2>
+					<h4>The Averge Response time and Arrive time for emergencies 2010-2019</h4>
 					<hr class="divider"\>
 					<h5 class="section-title left">by Kate Luo, Mar 2, 2020</h5>
           <h6>How could we know is the San Francisco Fire Department fully equipped to handle the multitude and wide range or emergencies that occur in San Francisco?</h6>
-          <p>This is a common scenario in fire departments across the country. A resident has a fire or emergency medical situation and calls 9-1-1, call intake information is gathered, the tones go off, crews are dispatched, and firefighters turn out and arrive on scene to mitigate the situation.
-            <strong>The response time</strong>, it is the most strightforward aspect to see how fast or slow does San Francisco Fire Department to handle emergencies.</p>
+          <p>This is a common scenario in fire departments across the country. A resident has a fire or emergency medical situation and calls 9-1-1, call in take information is gathered, the tones go off, crews are dispatched, and firefighters turn out and arrive on scene to mitigate the situation.
+            <strong>The response time and arrive time</strong>, it is the most strightforward aspect to see how fast or slow does San Francisco Fire Department to handle emergencies.</p>
           <hr>
           <h5>Context for this data visualization</h5>
           <br>
@@ -76,7 +76,7 @@
               <p><strong>Response Time: </strong> first we need to know the definition of response time: response time is the total amount of time it takes to respond to a request for service.
                 In this senario, the response time is calculat the different between Received DtTm(date and time of call is received at the 911 Dispatch Center) and Respond DtTm(Date and time this unit acknowledges the dispatch and records that the unit is en route to the location of the call).
               </p>
-              <p></strong>Arrive Time After Respond: </strong> we use On Scene DtTm(Date and time the unit records arriving to the location of the incident) and Resond DtTm(ate and time this unit acknowledges the dispatch and records that the unit is en route to the location of the call) to find out
+              <p><strong>Arrive Time After Respond: </strong> we use On Scene DtTm(Date and time the unit records arriving to the location of the incident) and Resond DtTm(ate and time this unit acknowledges the dispatch and records that the unit is en route to the location of the call) to find out
                 how many time to arrive.
               </p>
             </li>
@@ -94,8 +94,8 @@
               </p>
             </li>
             <li>
-              <h6>The StandardL: NFPA</h6>
-              <p>How do fire departments accurately evaluate their response in respond time?</p>
+              <h6>The Standard: NFPA</h6>
+              <p>How do fire departments accurately evaluate their response in respond time and arrive time?</p>
               <p><a href="https://www.nfpa.org/codes-and-standards/all-codes-and-standards/list-of-codes-and-standards/detail?code=1710">NFPA 1710: Standard for the Organization and Deployment of Fire Suppression Operations, Emergency Medical Operations, and Special Operations to the Public by Career Fire Departments</a></p>
               <p>The basic idea is that the arrival of an effective response force on scene in less than<strong> 8 minutes</strong> (performance metric in NFPA 1710).</p>
             </li>
@@ -115,6 +115,21 @@
 					<div class="chart-container">
 						<img src="../assets/img/prototypes/response-lineChart.png" alt="Bar Chart">
 					</div>
+          <!-- final release -->
+          <br>
+          <h2>The Feedback</h2>
+          <ul>
+            <li><strong>Axis and Scale: </strong> change the axis and scale to get rid of the excessive white space in the phototype.
+              Also, clarify the Y-axis for the top chart as time in minutes.
+            </li>
+            <li><strong>Visual: </strong> add dotted line with averge respond time and arrive time to make readers more easier to compared.</li>
+            <li><strong>Analysis: </strong> discuss more about the visual anomaly that occurred in 2014 since the avg response time increased by more than one minute.</li>
+          </ul>
+          <br>
+          <div class="chart-container">
+            <img src="../assets/img/prototypes/line-chart-after-feedback.png" alt="Bar Chart">
+          </div>
+          <a href="/midterm-datalization/prototypes/line-chart-d3.html" class="button">D3 implementations</a>
 				</div>
 			</div>
 		</main>

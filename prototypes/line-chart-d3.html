@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CS360/560 Midterm: Datalization</title>
+
+        <!-- Required CSS files -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="../assets/css/barfiller.css">
+    <link rel="stylesheet" href="../assets/css/animate.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/slicknav.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="https://www.jq22.com/jquery/font-awesome.4.7.0.css">
+
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <style media="screen">
+    div.tooltip {
+        position: absolute;
+        text-align: left;
+        width: 200px;
+        height: 70px;
+        padding: 2px;
+        font: 12px sans-serif;
+        background: lightsteelblue;
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
+      }
+      .charts{
+        width: 990px;
+        height: 520px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #ccc;
+      }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="preloader">
+        <span class="preloader-spin"></span>
+    </div>
+    <div class="site">
+		<header id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col-6 col-sm-3 logo-column">
+						<h3><a href="/midterm-datalization/" class="logo">Datalization</a></h3>
+					</div>
+					<div class="col-6 col-sm-9 nav-column clearfix">
+						<nav id="menu" class="d-none d-lg-block">
+							<ul>
+								<li><a href="/midterm-datalization/">Home</a></li>
+								<li><a href="/midterm-datalization/dataset.html">Dataset</a></li>
+								<li class="has-child">
+									<a href="/midterm-datalization/prototypes/">Prototypes</a>
+									<ul class="sub-menu">
+										<li><a href="/midterm-datalization/prototypes/bar-chart.html"><i class="fa fa-bar-chart"></i> Bar Chart</a></li>
+										<li class="current-menu-item"><a href="/midterm-datalization/prototypes/line-chart.html"><i class="fa fa-line-chart"></i> Line Chart</a></li>
+										<li><a href="/midterm-datalization/prototypes/area-chart.html"><i class="fa fa-area-chart"></i> Area Chart</a></li>
+									</ul>
+								</li>
+								<li><a href="/midterm-datalization/team.html">Team</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main id="main">
+			<div class="page-title sp" style="background-image: url(../assets/img/home-banner.jpg)">
+				<div class="container text-center">
+					<h2>Tableau Prototype</h2>
+					<p>The trends of Avg. ArriveTimeAfterResponse and Avg. responseTime
+          Vs the trend of total nunber of emergencies for 2010-2019</p>
+				</div>
+			</div>
+			<div class="about-area sp">
+				<div class="container content-main">
+					<h2>Prototype</h2>
+					<h4>The Averge Response time and Arrive time for emergencies 2010-2019</h4>
+					<hr class="divider"\>
+					<h5 class="section-title left">by Kate Luo, Mar 2, 2020</h5>
+          <h6>Interactive struction</h6>
+          <p><strong>ToolTips(infotip)</strong>In this line chart, I create a graphical user interface element: tooltip. When you hovers over an item, without clicking t, and a tooplip which
+          including the year of call data, the averge of respond time, the averge of arrive time and total number of emergencies will appear.</p>
+          <hr>
+          <h5>D3 implementations for data visualization</h5>
+          <br>
+          <div class="charts">
+            <svg id="chart" >
+              <svg id ="chart2">
+
+              </svg>
+            </svg>
+          </div>
+
+
+          <br>
+
+
+          <script type="text/javascript">
+            var margin = {top:100,right:20,bottom:30,left:100},
+                width= 960- margin.left -margin.right,
+                height= 350- margin.top-margin.bottom;
+
+            var x = d3.scaleLinear().range([0,width]);
+            var y = d3.scaleLinear().range([height,0]);
+            var y1 = d3.scaleLinear().range([height,0]);
+
+
+
+            // define the 1st line
+            var valueline1 = d3.line()
+                              .x(function(d){return x(d.date)})
+                              .y(function(d){return y(d.respond)});
+            var valueline2 = d3.line()
+                               .x(function(d){return x(d.date)})
+                               .y(function(d){return y(d.arrive)});
+
+           var valueline3 = d3.line()
+                              .x(function(d){return x(d.date)})
+                              .y(function(d){return y1(d.number/1000)});
+
+            var svg = d3.select("body").select("#chart")
+                        .attr("width",960)
+                        .attr("height",500)
+                        .append("g")
+                        .attr("transform", "translate(60,20)");
+
+
+            var svg1 = d3.select("body").select("#chart2")
+                        .attr("width",960)
+                        .attr("height",500)
+                        .append("g")
+                        .attr("transform", "translate(60,250)");
+
+
+
+            var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+            // get Dataset
+
+            d3.csv("line-chart-data.csv").then(function(data){
+              console.log(data);
+
+              x.domain(d3.extent(data,function(d){return d.date;}));
+              y.domain([2,6]);
+              y1.domain([200,350])
+
+              svg.append("path")
+                 .data([data])
+                 .attr("class","line")
+                 .style("stroke", "steelblue")
+                 .style("stroke-width","3px")
+                 .attr("d",valueline1)
+                 .attr("fill","none");
+
+              svg.append("path")
+                    .data([data])
+                    .attr("class", "line")
+                    .style("stroke", "red")
+                    .style("stroke-width","3px")
+                    .attr("d", valueline2)
+                    .attr("fill","none");
+
+              svg1.append("path")
+                    .data([data])
+                    .attr("class", "line")
+                    .style("stroke", "green")
+                    .style("stroke-width","3px")
+                    .attr("d", valueline3)
+                    .attr("fill","none");
+
+
+               svg.append("g")
+                  .attr("transform", "translate(0," + height + ")")
+                   .call(d3.axisBottom(x).ticks(10).tickFormat("").tickSize(0))
+                   .selectAll('text')
+                   .style("text-anchor", "middle")
+                     .attr("transform", "translate(10,0)");
+
+               svg1.append("g")
+                  .attr("transform", "translate(0," + height + ")")
+                   .call(d3.axisBottom(x).ticks(10))
+                   .selectAll('text')
+                   .style("text-anchor", "middle")
+                     .attr("transform", "translate(10,0)");
+
+               svg1.append("g")
+                  .call(d3.axisLeft(y1).ticks(3).tickFormat(function(d){return d+'M'}))
+                  .style("stroke","3px");
+
+               svg.append("g")
+                  .call(d3.axisLeft(y).ticks(3))
+                  .style("stroke","3px");
+
+              svg1.append("text")
+                      .attr("transform","translate(" + (width/2) + " ," +
+                           (height+30) + ")")
+                      .style("text-anchor", "middle")
+                      .text("Year of call Date");
+
+              svg.append("text")
+                 .attr("transform", "translate(40,0)")
+                 .attr("transform", "rotate(-90)")
+                 .attr("y", -50)
+                 .attr("x",0 - (height / 2))
+                 .attr("dy", "1em")
+                 .style("text-anchor", "middle")
+                 .text("minutes");
+
+             svg1.append("text")
+                .attr("transform", "translate(40,0)")
+                .attr("transform", "rotate(-90)")
+                .attr("y", -55)
+                .attr("x",0 - (height / 2))
+                .attr("dy", "1em")
+                .style("text-anchor", "middle")
+                .text("Number of emergency");
+
+            // add the scatterplot
+            svg.selectAll("dot")
+                .data(data)
+            .enter().append("circle")
+                .attr("r", 4)
+                .attr("fill","steelblue")
+                .attr("cx", function(d) { return x(d.date); })
+                .attr("cy", function(d) { return y(d.respond); })
+                .on("mouseover", function(d) {
+                    div.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    div	.html("year:  "+d.date + "<br/>"  +"avg.respond time: " +d.respond+" minutes"+"<br/>" +"avg.arrive time: " +d.arrive+" minutes"+"<br/>" +"# of emergencies: " +d.number)
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px");
+                    })
+                .on("mouseout", function(d) {
+                    div.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                });
+
+            svg.selectAll("dot")
+                .data(data)
+            .enter().append("circle")
+                .attr("r", 4)
+                .attr("fill","red")
+                .attr("cx", function(d) { return x(d.date); })
+                .attr("cy", function(d) { return y(d.arrive); })
+                .on("mouseover", function(d) {
+                    div.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    div	.html("year:  "+d.date + "<br/>"  +"avg.respond time: " +d.respond+" minutes"+"<br/>" +"avg.arrive time: " +d.arrive+" minutes"+"<br/>" +"# of emergencies: " +d.number)
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px");
+                    })
+                .on("mouseout", function(d) {
+                    div.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                });
+
+              svg1.selectAll("dot")
+                  .data(data)
+              .enter().append("circle")
+                  .attr("r", 4)
+                  .attr("fill","green")
+                  .attr("cx", function(d) { return x(d.date); })
+                  .attr("cy", function(d) { return y1(d.number/1000); })
+                  .on("mouseover", function(d) {
+                      div.transition()
+                          .duration(200)
+                          .style("opacity", .9);
+                      div	.html("year:  "+d.date + "<br/>"  +"avg.respond time: " +d.respond+" minutes"+"<br/>" +"avg.arrive time: " +d.arrive+" minutes"+"<br/>" +"# of emergencies: " +d.number)
+                          .style("left", (d3.event.pageX) + "px")
+                          .style("top", (d3.event.pageY - 28) + "px");
+                      })
+                  .on("mouseout", function(d) {
+                      div.transition()
+                          .duration(500)
+                          .style("opacity", 0);
+                  });
+
+              svg.selectAll(".dot")
+                  .data(data)
+                  .enter()
+                  .append("text")
+                  .attr("x",function(d) { return x(d.date); })
+                  .attr("y", function(d) { return y(d.arrive)-10; })
+                  .text(function(d) { return d3.format(",.3f")(d.arrive); });
+
+
+              svg.selectAll(".dot")
+                  .data(data)
+                  .enter()
+                  .append("text")
+                  .attr("x",function(d) { return x(d.date); })
+                  .attr("y", function(d) { return y(d.respond)-10; })
+                  .text(function(d) { return d3.format(",.3f")(d.respond); });
+
+              svg1.selectAll(".dot")
+                  .data(data)
+                  .enter()
+                  .append("text")
+                  .attr("x",function(d) { return x(d.date); })
+                  .attr("y", function(d) { return y1(d.number/1000)-10; })
+                  .text(function(d) { return d.number; });
+
+              svg.append("text")
+                  .attr("transform","translate("+(width-100)+","+(y(data[0].respond)+5) + ")")
+                  .attr("dy",".35em")
+                  .attr("text-anchor","start")
+                  .attr("fill","steelblue")
+                  .text("Avg.respond time");
+
+
+              svg.append("text")
+                  .attr("transform","translate("+(width-100)+","+(y(data[0].arrive)-50) + ")")
+                  .attr("dy",".35em")
+                  .attr("text-anchor","start")
+                  .attr("fill","red")
+                  .text("Avg.arrive time");
+
+            svg1.append("text")
+                .attr("transform","translate("+(width-130)+","+(y1(data[0].number/1000)-60) + ")")
+                .attr("dy",".35em")
+                .attr("text-anchor","start")
+                .attr("fill","green")
+                .text("Number of emergencies");
+
+            });
+
+
+
+          </script>
+				</div>
+			</div>
+		</main>
+		<footer>
+			<div class="footer-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 col-lg-6 footer_widget">
+							<div class="inner">
+								<h4>About</h4>
+								<p>We are a team built by CS Students at USF. This is a website for our midterm project and you can find out the original data we are going to use for this project in our dataset.</p>
+							</div>
+						</div>
+						<div class="col-md-12 col-lg-6 footer_widget">
+							<div class="inner">
+								<h4>Credits</h4>
+								<ul>
+									<li><a href="https://www.themeum.com" target="_blank">Theme: Flat Theme</a></li>
+									<li><a href="https://getbootstrap.com/" target="_blank">Framework: Bootstrap</a></li>
+									<li><a href="https://www.freepik.com" target="_blank">Images: freepik</a></li>
+									<li><a href="https://unsplash.com/" target="_blank">Images: Unsplash</a></li>
+									<li><a href="https://fontawesome.com" target="_blank">Icon: FontAwesome</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="copyright-txt">
+								Copyright &copy; 2020.Datalization All rights reserved.
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+    </div>
+
+    <!--Required JS files-->
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="../assets/js/vendor/popper.min.js"></script>
+<script src="../assets/js/vendor/bootstrap.min.js"></script>
+<script src="../assets/js/vendor/owl.carousel.min.js"></script>
+<script src="../assets/js/vendor/isotope.pkgd.min.js"></script>
+<script src="../assets/js/vendor/jquery.barfiller.js"></script>
+<script src="../assets/js/vendor/loopcounter.js"></script>
+<script src="../assets/js/vendor/slicknav.min.js"></script>
+<script src="../assets/js/active.js"></script>
+
+</body>
+
+</html>
