@@ -26,7 +26,7 @@
         position: absolute;
         text-align: left;
         width: 200px;
-        height: 70px;
+        height: 100px;
         padding: 2px;
         font: 12px sans-serif;
         background: lightsteelblue;
@@ -41,6 +41,85 @@
         border-width: 1px;
         border-color: #ccc;
       }
+      .interactive{
+        width: 990px;
+        height: 520px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #ccc;
+      }
+
+      .zoom {
+        cursor: move;
+        fill: none;
+        pointer-events: all;
+      }
+
+      .line {
+          fill: none;
+          stroke: red;
+          stroke-width: 2.5px;
+      	clip-path: url(#clip);
+      }
+      .line1 {
+          fill: none;
+          stroke: steelblue;
+          stroke-width: 2.5px;
+        clip-path: url(#clip);
+      }
+
+      /* .axis path,
+      .axis line,
+      .axis1 path,
+      .axis1 line {
+        fill: none;
+        stroke: #E6E7E8;
+        shape-rendering: crispEdges;
+      }
+
+      .x.axis path, .x.axis1 path {
+        display: none;
+      }
+
+      .line {
+        fill: none;
+        stroke-width: 1.5px;
+      }
+
+      .legend-box {
+        cursor: pointer;
+      }
+
+      #mouse-tracker {
+        stroke: #E6E7E8;
+        stroke-width: 1px;
+      }
+
+      .hover-line {
+        stroke: #E6E7E8;
+        fill: none;
+        stroke-width: 1px;
+        left: 10px;
+        shape-rendering: crispEdges;
+        opacity: 1e-6;
+      }
+
+      .hover-text {
+        stroke: none;
+        font-size: 30px;
+        font-weight: bold;
+        fill: #000000;
+      }
+
+      .tooltip {
+        font-weight: normal;
+      }
+
+      .brush .extent {
+        stroke: #FFF;
+        shape-rendering: crispEdges;
+      }
+ */
 
     </style>
 
@@ -81,8 +160,8 @@
 			<div class="page-title sp" style="background-image: url(../assets/img/home-banner.jpg)">
 				<div class="container text-center">
 					<h2>Tableau Prototype</h2>
-					<p>The trends of Avg. ArriveTimeAfterResponse and Avg. responseTime
-          Vs the trend of total nunber of emergencies for 2010-2019</p>
+					<p>The trends of averge. arrive time after response and averge response time
+          Vs The trends of total nunber of emergencies and total population for 2010-2019</p>
 				</div>
 			</div>
 			<div class="about-area sp">
@@ -91,11 +170,14 @@
 					<h4>The Averge Response time and Arrive time for emergencies 2010-2019</h4>
 					<hr class="divider"\>
 					<h5 class="section-title left">by Kate Luo, Mar 2, 2020</h5>
-          <h6>Interactive struction</h6>
+          <h5>Interactive struction</h5>
           <p><strong>ToolTips(infotip)</strong>In this line chart, I create a graphical user interface element: tooltip. When you hovers over an item, without clicking t, and a tooplip which
           including the year of call data, the averge of respond time, the averge of arrive time and total number of emergencies will appear.</p>
+          <div class="col-md-6">
+            <img src="../assets/img/prototypes/tooltips-instruction.png" alt="">
+          </div>
           <hr>
-          <h5>D3 implementations for data visualization</h5>
+          <h5>D3 implementations(ToolTips)</h5>
           <br>
           <div class="charts">
             <svg id="chart" >
@@ -107,8 +189,297 @@
 
 
           <br>
+        <hr>
+        <h5>Interactive Instruction</h5>
+
+        <p><strong>Brush & Zoom</strong>In this line chart, I create a graphical user interface element: Brush & Zoom. Converted the Brush & Zoom area chart block to work with line charts and combining d3-brush and s2-zoom to implement focus + context.</p>
+        <hr>
+        <h5>D3 implementations(Brush & Zoom)</h5>
+        <br>
+        <!-- <div class="interactive" id="chart3"> -->
+        <div class="interactive">
+            <svg width="720" height="450" id="chart3"></svg>
+        </div>
+
+        <br>
+        <!-- <a href="/midterm-datalization/prototypes/line-chart-d3-interactive.html" class="button">Learn more</a> -->
 
 
+          <!-- <script type="text/javascript">
+            var margin_1 = {top:100,right:20,bottom:30,left:100},
+                width_1= 960- margin_1.left -margin_1.right,
+                height_1= 350- margin_1.top-margin_1.bottom;
+
+            var x = d3.scaleTime().range([0,width_1]);
+            var y = d3.scaleLinear().range([height_1,0]);
+            var y1 = d3.scaleLinear().range([height_1,0]);
+
+
+
+            // define the 1st line
+            var valueline1 = d3.line()
+                              .x(function(d){return x(d.date)})
+                              .y(function(d){return y(d.respond)});
+            var valueline2 = d3.line()
+                               .x(function(d){return x(d.date)})
+                               .y(function(d){return y(d.arrive)});
+
+           var valueline3 = d3.line()
+                              .x(function(d){return x(d.date)})
+                              .y(function(d){return y1(d.number/1000)});
+
+           var valueline4 = d3.line()
+                             .x(function(d){return x(d.date)})
+                             .y(function(d){return y1(d.population/1000)});
+
+            var svg = d3.select("body").select("#chart")
+                        .attr("width",960)
+                        .attr("height",500)
+                        .append("g")
+                        .attr("transform", "translate(60,20)");
+
+
+            var svg1 = d3.select("body").select("#chart2")
+                        .attr("width",960)
+                        .attr("height",500)
+                        .append("g")
+                        .attr("transform", "translate(60,240)");
+
+
+
+            var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+            // get Dataset
+
+            d3.csv("line-chart-data.csv").then(function(data){
+              console.log(data);
+
+              x.domain(d3.extent(data,function(d){return d.date;}));
+              y.domain([2,6]);
+              y1.domain([200,350])
+
+              svg.append("path")
+                 .data([data])
+                 .attr("class","line")
+                 .style("stroke", "steelblue")
+                 .style("stroke-width","3px")
+                 .attr("d",valueline1)
+                 .attr("fill","none");
+
+              svg.append("path")
+                    .data([data])
+                    .attr("class", "line")
+                    .style("stroke", "red")
+                    .style("stroke-width","3px")
+                    .attr("d", valueline2)
+                    .attr("fill","none");
+
+              svg1.append("path")
+                    .data([data])
+                    .attr("class", "line")
+                    .style("stroke", "green")
+                    .style("stroke-width","3px")
+                    .attr("d", valueline3)
+                    .attr("fill","none");
+
+              svg1.append("path")
+                    .data([data])
+                    .attr("class", "line")
+                    .style("stroke", "yellow")
+                    .style("stroke-width","3px")
+                    .attr("d", valueline4)
+                    .attr("fill","none");
+
+
+               svg.append("g")
+                  .attr("transform", "translate(0," + height_1 + ")")
+                   .call(d3.axisBottom(x).ticks(10).tickFormat("").tickSize(0))
+                   .selectAll('text')
+                   .style("text-anchor", "middle")
+                     .attr("transform", "translate(10,-10)");
+
+               svg1.append("g")
+                  .attr("transform", "translate(0," + height_1 + ")")
+                   .call(d3.axisBottom(x).ticks(10))
+                   .selectAll('text')
+                   .style("text-anchor", "middle")
+                     .attr("transform", "translate(10,10)");
+
+               svg1.append("g")
+            // .attr("transform","translate(0,100)")
+                  .call(d3.axisLeft(y1).ticks(3).tickFormat(function(d){return d+'M'}))
+                  .style("stroke","3px");
+
+               svg.append("g")
+                  .call(d3.axisLeft(y).ticks(3))
+                  .style("stroke","3px");
+
+              svg1.append("text")
+                      .attr("transform","translate(" + (width_1/2) + " ," +
+                           (height_1+30) + ")")
+                      .style("text-anchor", "middle")
+                      .text("Year of call Date");
+
+              svg.append("text")
+                 .attr("transform", "translate(40,0)")
+                 .attr("transform", "rotate(-90)")
+                 .attr("y", -50)
+                 .attr("x",0 - (height_1 / 2))
+                 .attr("dy", "1em")
+                 .style("text-anchor", "middle")
+                 .text("minutes");
+
+             svg1.append("text")
+                .attr("transform", "translate(40,0)")
+                .attr("transform", "rotate(-90)")
+                .attr("y", -55)
+                .attr("x",0 - (height_1 / 2))
+                .attr("dy", "1em")
+                .style("text-anchor", "middle")
+                .text("Number of emergency");
+
+            // add the scatterplot
+            svg.selectAll("dot")
+                .data(data)
+            .enter().append("circle")
+                .attr("r", 4)
+                .attr("fill","steelblue")
+                .attr("cx", function(d) { return x(d.date); })
+                .attr("cy", function(d) { return y(d.respond); })
+                .on("mouseover", function(d) {
+                    div.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    div	.html("year:  "+d.date + "<br/>"  +"avg.respond time: " +d3.format(".2f")(d.respond)+" minutes"+"<br/>" +"avg.arrive time: " +d3.format(".2f")(d.arrive)+" minutes"+"<br/>" +"# of emergencies: "
+                     +d.number+"<br/>" +"# of population: " +d.population+"<br/>" +"ratio of incidents: " +d3.format(".2f")(d.number/d.population*100)+"%")
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px");
+                    })
+                .on("mouseout", function(d) {
+                    div.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                });
+
+            svg.selectAll("dot")
+                .data(data)
+            .enter().append("circle")
+                .attr("r", 4)
+                .attr("fill","red")
+                .attr("cx", function(d) { return x(d.date); })
+                .attr("cy", function(d) { return y(d.arrive); })
+                .on("mouseover", function(d) {
+                    div.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                        div	.html("year:  "+d.date + "<br/>"  +"avg.respond time: " +d3.format(".2f")(d.respond)+" minutes"+"<br/>" +"avg.arrive time: " +d3.format(".2f")(d.arrive)+" minutes"+"<br/>" +"# of emergencies: "
+                         +d.number+"<br/>" +"# of population: " +d.population+"<br/>" +"ratio of incidents: " +d3.format(".2f")(d.number/d.population*100)+"%")
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px");
+                    })
+                .on("mouseout", function(d) {
+                    div.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                });
+
+              svg1.selectAll("dot")
+                  .data(data)
+              .enter().append("circle")
+                  .attr("r", 4)
+                  .attr("fill","green")
+                  .attr("cx", function(d) { return x(d.date); })
+                  .attr("cy", function(d) { return y1(d.number/1000); })
+                  .on("mouseover", function(d) {
+                      div.transition()
+                          .duration(200)
+                          .style("opacity", .9);
+                          div	.html("year:  "+d.date + "<br/>"  +"avg.respond time: " +d3.format(".2f")(d.respond)+" minutes"+"<br/>" +"avg.arrive time: " +d3.format(".2f")(d.arrive)+" minutes"+"<br/>" +"# of emergencies: "
+                           +d.number+"<br/>" +"# of population: " +d.population+"<br/>" +"ratio of incidents: " +d3.format(".2f")(d.number/d.population*100)+"%")
+                          .style("left", (d3.event.pageX) + "px")
+                          .style("top", (d3.event.pageY - 28) + "px");
+                      })
+                  .on("mouseout", function(d) {
+                      div.transition()
+                          .duration(500)
+                          .style("opacity", 0);
+                  });
+
+              svg1.selectAll("dot")
+                  .data(data)
+              .enter().append("circle")
+                  .attr("r", 4)
+                  .attr("fill","green")
+                  .attr("cx", function(d) { return x(d.date); })
+                  .attr("cy", function(d) { return y1(d.population/1000); })
+                  .on("mouseover", function(d) {
+                      div.transition()
+                          .duration(200)
+                          .style("opacity", .9);
+                          div	.html("year:  "+d.date + "<br/>"  +"avg.respond time: " +d3.format(".2f")(d.respond)+" minutes"+"<br/>" +"avg.arrive time: " +d3.format(".2f")(d.arrive)+" minutes"+"<br/>" +"# of emergencies: "
+                           +d.number+"<br/>" +"# of population: " +d.population+"<br/>" +"ratio of incidents: " +d3.format(".2f")(d.number/d.population*100)+"%")
+                          .style("left", (d3.event.pageX) + "px")
+                          .style("top", (d3.event.pageY - 28) + "px");
+                      })
+                  .on("mouseout", function(d) {
+                      div.transition()
+                          .duration(500)
+                          .style("opacity", 0);
+                  });
+
+              svg.selectAll(".dot")
+                  .data(data)
+                  .enter()
+                  .append("text")
+                  .attr("x",function(d) { return x(d.date); })
+                  .attr("y", function(d) { return y(d.arrive)-10; })
+                  .text(function(d) { return d3.format(",.3f")(d.arrive); });
+
+
+              svg.selectAll(".dot")
+                  .data(data)
+                  .enter()
+                  .append("text")
+                  .attr("x",function(d) { return x(d.date); })
+                  .attr("y", function(d) { return y(d.respond)-10; })
+                  .text(function(d) { return d3.format(",.3f")(d.respond); });
+
+              svg1.selectAll(".dot")
+                  .data(data)
+                  .enter()
+                  .append("text")
+                  .attr("x",function(d) { return x(d.date); })
+                  .attr("y", function(d) { return y1(d.number/1000)-10; })
+                  .text(function(d) { return d.number; });
+
+              svg.append("text")
+                  .attr("transform","translate("+(width_1-100)+","+(y(data[0].respond)+5) + ")")
+                  .attr("dy",".35em")
+                  .attr("text-anchor","start")
+                  .attr("fill","steelblue")
+                  .text("Avg.respond time");
+
+
+              svg.append("text")
+                  .attr("transform","translate("+(width_1-100)+","+(y(data[0].arrive)-50) + ")")
+                  .attr("dy",".35em")
+                  .attr("text-anchor","start")
+                  .attr("fill","red")
+                  .text("Avg.arrive time");
+
+            svg1.append("text")
+                .attr("transform","translate("+(width_1-130)+","+(y1(data[0].number/1000)-60) + ")")
+                .attr("dy",".35em")
+                .attr("text-anchor","start")
+                .attr("fill","green")
+                .text("Number of emergencies");
+
+            });
+
+
+
+          </script> -->
           <script type="text/javascript">
             var margin = {top:100,right:20,bottom:30,left:100},
                 width= 960- margin.left -margin.right,
@@ -161,7 +532,7 @@
 
               svg.append("path")
                  .data([data])
-                 .attr("class","line")
+                 .attr("class","line_1")
                  .style("stroke", "steelblue")
                  .style("stroke-width","3px")
                  .attr("d",valueline1)
@@ -169,7 +540,7 @@
 
               svg.append("path")
                     .data([data])
-                    .attr("class", "line")
+                    .attr("class", "line_1")
                     .style("stroke", "red")
                     .style("stroke-width","3px")
                     .attr("d", valueline2)
@@ -177,7 +548,7 @@
 
               svg1.append("path")
                     .data([data])
-                    .attr("class", "line")
+                    .attr("class", "line_1")
                     .style("stroke", "green")
                     .style("stroke-width","3px")
                     .attr("d", valueline3)
@@ -242,7 +613,8 @@
                     div.transition()
                         .duration(200)
                         .style("opacity", .9);
-                    div	.html("year:  "+d.date + "<br/>"  +"avg.respond time: " +d.respond+" minutes"+"<br/>" +"avg.arrive time: " +d.arrive+" minutes"+"<br/>" +"# of emergencies: " +d.number)
+                        div	.html("year:  "+d.date + "<br/>"  +"avg.respond time: " +d.respond+" minutes"+"<br/>" +"avg.arrive time: " +d.arrive+" minutes"
+                        +"<br/>" +"# of emergencies: " +d.number+"<br/>" +"# of population: " +d.population+"<br/>" +"ratio of incidents: " +d3.format(".2f")(d.number/d.population*100)+"%")
                         .style("left", (d3.event.pageX) + "px")
                         .style("top", (d3.event.pageY - 28) + "px");
                     })
@@ -263,7 +635,8 @@
                     div.transition()
                         .duration(200)
                         .style("opacity", .9);
-                    div	.html("year:  "+d.date + "<br/>"  +"avg.respond time: " +d.respond+" minutes"+"<br/>" +"avg.arrive time: " +d.arrive+" minutes"+"<br/>" +"# of emergencies: " +d.number)
+                    div	.html("year:  "+d.date + "<br/>"  +"avg.respond time: " +d.respond+" minutes"+"<br/>" +"avg.arrive time: " +d.arrive+" minutes"
+                    +"<br/>" +"# of emergencies: " +d.number+"<br/>" +"# of population: " +d.population+"<br/>" +"ratio of incidents: " +d3.format(".2f")(d.number/d.population*100)+"%")
                         .style("left", (d3.event.pageX) + "px")
                         .style("top", (d3.event.pageY - 28) + "px");
                     })
@@ -284,7 +657,8 @@
                       div.transition()
                           .duration(200)
                           .style("opacity", .9);
-                      div	.html("year:  "+d.date + "<br/>"  +"avg.respond time: " +d.respond+" minutes"+"<br/>" +"avg.arrive time: " +d.arrive+" minutes"+"<br/>" +"# of emergencies: " +d.number)
+                          div	.html("year:  "+d.date + "<br/>"  +"avg.respond time: " +d.respond+" minutes"+"<br/>" +"avg.arrive time: " +d.arrive+" minutes"
+                          +"<br/>" +"# of emergencies: " +d.number+"<br/>" +"# of population: " +d.population+"<br/>" +"ratio of incidents: " +d3.format(".2f")(d.number/d.population*100)+"%")
                           .style("left", (d3.event.pageX) + "px")
                           .style("top", (d3.event.pageY - 28) + "px");
                       })
@@ -342,12 +716,275 @@
                 .text("Number of emergencies");
 
             });
+      </script>
+      <script>
+
+          d3.csv("line-chart-datafile.csv").then(function(data){
+              console.log(data);
+              var svg3 = d3.select("#chart3"),
+                margin = {top: 30, right: 20, bottom: 150, left: 40},
+                margin2 = {top: 320, right: 20, bottom: 30, left: 40},
+                width = +svg3.attr("width") - margin.left - margin.right,
+                height = +svg3.attr("height") - margin.top - margin.bottom,
+                height2 = +svg3.attr("height") - margin2.top - margin2.bottom;
+
+              var x = d3.scaleTime().range([0, width]),
+                x2 = d3.scaleTime().range([0, width]),
+                y = d3.scaleLinear().range([height, 0]),
+                y2 = d3.scaleLinear().range([height2, 0]);
+
+              var xAxis = d3.axisBottom(x),
+                xAxis2 = d3.axisBottom(x2),
+                yAxis = d3.axisLeft(y);
+
+
+              var parseDate = d3.timeParse("%B %Y");
+
+              data.forEach((d, i) => {
+                d.date = parseDate(d.date);
+                d.arrive = +d.arrive;
+              });
+
+              var line = d3.line()
+                .x(function(d) { return x(d.date); })
+                .y(function(d) { return y(d.arrive); });
+
+              var line2 = d3.line()
+                .x(function(d) { return x2(d.date); })
+                .y(function(d) { return y2(d.arrive); });
+
+              var line3 = d3.line()
+                .x(function(d) { return x(d.date); })
+                .y(function(d) { return y(d.respond); });
+
+              var line4 = d3.line()
+                .x(function(d) { return x2(d.date); })
+                .y(function(d) { return y2(d.respond); });
+
+              svg3.append("defs").append("clipPath")
+                .attr("id", "clip")
+                .append("rect")
+                .attr("width", width)
+                .attr("height", height)
+                .attr("x",0)
+                .attr("y",0);
+
+
+              var focus = svg3.append("g")
+                .attr("class", "focus")
+                .attr("transform", "translate(" + (margin.left+50) + "," + (margin.top) + ")");
+
+              var context = svg3.append("g")
+                .attr("class", "context")
+                .attr("transform", "translate(" + (margin2.left+50) + "," + (margin2.top) + ")");
+
+              var leftHandle = 0,
+                rightHandle = 1140
+
+              var currentExtent = [0,0]
+
+              var brush = d3.brushX()
+                .extent([[leftHandle, 0], [rightHandle, height2]])
+              .on("brush start", updateCurrentExtent)
+                .on("brush end", brushed);
+
+              var zoom = d3.zoom()
+                .scaleExtent([1, Infinity])
+                .translateExtent([[0, 0], [width, height]])
+                .extent([[0, 0], [width, height]])
+                .on("zoom", zoomed);
+
+              x.domain(d3.extent(data, function(d) { return d.date; }));
+              y.domain([3, d3.max(data, function(d) { return d.respond; })]);
+              x2.domain(x.domain());
+              y2.domain(y.domain());
+
+              focus.append("path")
+                  .datum(data)
+                  .attr("class", "line")
+                  .attr("d", line);
+
+              focus.append("path")
+                  .datum(data)
+                  .attr("class", "line1")
+                  .attr("d", line3);
+
+              focus.append("g")
+                  .attr("class", "axis axis--x")
+                  .attr("transform", "translate(0," + height + ")")
+                  .call(xAxis);
+
+              focus.append("g")
+                  .attr("class", "axis axis--y")
+                  .call(yAxis);
+
+              context.append("path")
+                  .datum(data)
+                  .attr("class", "line")
+                  .attr("d", line2);
+              context.append("path")
+                  .datum(data)
+                  .attr("class", "line1")
+                  .attr("d", line4);
+
+              context.append("g")
+                  .attr("class", "axis axis--x")
+                  .attr("transform", "translate(0," + height2 + ")")
+                  .call(xAxis2);
+
+              context.append("g")
+                  .attr("class", "brush")
+                .on("click", brushed)
+                .call(brush)
+                .call(brush.move, [new Date(2010,0,1),new Date(2015,0,1)].map(x));
+
+              svg.append("rect")
+                  .attr("class", "zoom")
+                  .attr("width", width)
+                  .attr("height", height)
+                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                ;
+
+
+              function updateCurrentExtent() {
+              currentExtent = d3.brushSelection(this);
+              }
+
+
+              // function brushed() {
+              //   if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
+              //   var s = d3.event.selection;
+              //
+              //   //console.log(x(new Date(2001,0,1))); // 1 year in terms of x
+              //
+              //   var p = currentExtent,
+              //     xYear = x2(new Date(2010,0,1)),
+              //     left,
+              //     right;
+              //     console.log(s[0],s[1],p[0],p[1]);
+              //   if (d3.event.selection && s[1] - s[0] >= xYear) {
+              //   if (p[0] == s[0] && p[1] < s[1]) { // case where right handle is extended
+              //     if (s[1] >= width) {
+              //       left = width - xYear
+              //       right = width
+              //       s = [left, right];
+              //     }
+              //       left = s[1] - xYear/2
+              //       right = s[1] + xYear/2
+              //       s = [left, right];
+              //     }
+              //   }
+              //   else if (p[1] == s[1] && p[0] > s[0]) { // case where left handle is extended
+              //     if (s[0] <= 0) {
+              //       s = [0, xYear];
+              //     }
+              //     else {
+              //       s = [s[0] - xYear/2, s[0] + xYear/2]
+              //     }
+              //   }
+              //
+              //
+              //   if (!d3.event.selection){ // if no selection took place and the brush was just clicked
+              //   var mouse = d3.mouse(this)[0];
+              //         if (mouse < xYear/2) {
+              //             s = [0,xYear];
+              //         } else if (mouse + xYear/2 > width) {
+              //               s = [width-xYear, width];
+              //         }
+              //   else {
+              //         s = [d3.mouse(this)[0]-xYear/2, d3.mouse(this)[0]+xYear/2];
+              //         }
+              //   }
+              //
+              //   x.domain(s.map(x2.invert, x2));
+              //   focus.select(".line").attr("d", line);
+              //   focus.select(".axis--x").call(xAxis);
+              //   svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
+              //                        .scale(width / (s[1] - s[0]))
+              //                        .translate(-s[0], 0));
+              // }
+              function brushed() {
+                if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
+                var s = d3.event.selection || x2.range();
+                x.domain(s.map(x2.invert, x2));
+                focus.select(".line").attr("d", line);
+                focus.select(".line1").attr("d", line3);
+                focus.select(".axis--x").call(xAxis);
+                svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
+                    .scale(width / (s[1] - s[0]))
+                    .translate(-s[0], 0));
+              }
+
+
+              function zoomed() {
+                if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+                var t = d3.event.transform;
+                x.domain(t.rescaleX(x2).domain());
+                focus.select(".line").attr("d", line);
+                focus.select(".line1").attr("d", line3);
+                focus.select(".axis--x").call(xAxis);
+                context.select(".brush").call(brush.move, x.range().map(t.invertX, t));
+              }
 
 
 
-          </script>
-				</div>
-			</div>
+            function type(d) {
+              d.date = parseDate(d.date);
+              d.arrive = +d.arrive;
+              return d;
+            }
+
+            svg3.append("text")
+               .attr("transform", "translate(40,0)")
+               .attr("transform", "rotate(-90)")
+               .attr("y", 30)
+               .attr("x",0 - (height / 2))
+               .attr("dy", "1em")
+               .style("text-anchor", "middle")
+               .text("minutes");
+
+
+             svg3.append("text")
+                .attr("transform", "translate(40,0)")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 40)
+                .attr("x",0 - height-100)
+                .attr("dy", "1em")
+                .style("text-anchor", "middle")
+                .text("call year");
+
+                var jsonCircles = [
+                { "x_axis": 130, "y_axis": 0, "radius": 5, "color" : "steelblue" },
+                { "x_axis": 130, "y_axis": 20, "radius": 5, "color" : "red"}];
+
+                svg3.selectAll("circle")
+                    .data(jsonCircles)
+                    .enter()
+                    .append("circle")
+                        .attr("transform","translate(0,50)")
+                        .attr("cx", function (d) { return d.x_axis; })
+                        .attr("cy", function (d) { return d.y_axis; })
+                        .attr("r", function (d) { return d.radius; })
+                        .style("fill", function(d) { return d.color; });
+
+
+             svg3.append("text")
+                  .attr("transform","translate(0,50)")
+                  .attr("y",5)
+                  .attr("x",140)
+                  .style("fill","steelblue")
+                  .text("averge respond time")
+
+              svg3.append("text")
+                   .attr("transform","translate(0,50)")
+                   .attr("y",25)
+                   .attr("x",140)
+                   .style("fill","red")
+                   .text("averge arrive time")
+
+
+          });
+      </script>
 		</main>
 		<footer>
 			<div class="footer-top">
