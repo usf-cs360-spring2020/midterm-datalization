@@ -1,0 +1,32 @@
+/*
+svg#viz {
+ 
+	background-color: whitesmoke;
+	border-radius: 10px;
+}
+*/
+
+/* svg elements are styled differently from html elements */
+.single-line {
+	fill: none;
+	opacity: .25;
+}
+
+.axis-title {
+	font-weight: bold;
+	text-anchor: middle;
+}
+
+.legend-title {
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+.legend-squares {
+	stroke: black;
+	stroke-width: 1;
+}
+
+.legend-labels {
+	font-size: 10pt;
+}

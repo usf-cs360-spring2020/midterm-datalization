@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>CS360/560 Midterm: Datalization</title>
+
+		<!-- Required CSS files -->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="../assets/css/owl.carousel.css">
+		<link rel="stylesheet" href="../assets/css/barfiller.css">
+		<link rel="stylesheet" href="../assets/css/animate.css">
+		<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../assets/css/slicknav.css">
+		<link rel="stylesheet" href="../assets/css/main.css">
+		<link rel="stylesheet" href="https://www.jq22.com/jquery/font-awesome.4.7.0.css">
+
+		<!--Required JS files-->
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+		<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="../assets/js/vendor/popper.min.js"></script>
+		<script src="../assets/js/vendor/bootstrap.min.js"></script>
+		<script src="../assets/js/vendor/owl.carousel.min.js"></script>
+		<script src="../assets/js/vendor/isotope.pkgd.min.js"></script>
+		<script src="../assets/js/vendor/jquery.barfiller.js"></script>
+		<script src="../assets/js/vendor/loopcounter.js"></script>
+		<script src="../assets/js/vendor/slicknav.min.js"></script>
+		<script src="../assets/js/active.js"></script>
+
+		<!-- JS / CSS for this implementation -->
+		<link rel="stylesheet" href="../assets/css/area-chart.css">
+		<script src="../assets/js/area-chart.js"></script>
+	</head>
+
+	<body>
+		<div class="preloader">
+			<span class="preloader-spin"></span>
+		</div>
+
+		<div class="site">
+			<header id="header">
+				<div class="container">
+					<div class="row">
+						<div class="col-6 col-sm-3 logo-column">
+							<h3><a href="/midterm-datalization/" class="logo">Datalization</a></h3>
+						</div>
+						<div class="col-6 col-sm-9 nav-column clearfix">
+							<nav id="menu" class="d-none d-lg-block">
+								<ul>
+									<li><a href="/midterm-datalization/">Home</a></li>
+									<li><a href="/midterm-datalization/dataset.html">Dataset</a></li>
+									<li class="has-child">
+										<a href="/midterm-datalization/prototypes/">Prototypes</a>
+										<ul class="sub-menu">
+											<li><a href="/midterm-datalization/prototypes/bar-chart.html"><i class="fa fa-bar-chart"></i> Bar Chart</a></li>
+											<li class="current-menu-item"><a href="/midterm-datalization/prototypes/line-chart.html"><i class="fa fa-line-chart"></i> Line Chart</a></li>
+											<li><a href="/midterm-datalization/prototypes/area-chart.html"><i class="fa fa-area-chart"></i> Area Chart</a></li>
+										</ul>
+									</li>
+									<li><a href="/midterm-datalization/team.html">Team</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<main id="main">
+				<div class="page-title sp" style="background-image: url(../assets/img/home-banner.jpg)">
+					<div class="container text-center">
+						<h2>D3 Implementation</h2>
+						<p>Count of Various Emergencies by year: 2010-2019.</p>
+					</div>
+				</div>
+
+				<div class="about-area sp">
+					<div class="container content-main">
+						<h2>Count of Various Emergencies by Year: 2010-2019</h2>
+
+						<hr class="divider"\>
+						<h5 class="section-title left">by Ian Granger, Mar 20, 2020</h5>
+
+						<p>
+							Loren Ipsum
+						</p>
+
+						
+						<img src="../assets/img/prototypes/area-chart.png" alt="">
+						
+
+						<hr class="divider"\>
+						<h5>D3 implementation</h5>
+						
+						<svg id="viz">
+						</svg>
+
+					</div>
+				</div>
+
+			</main>
+
+			<footer>
+				<div class="footer-top">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12 col-lg-6 footer_widget">
+								<div class="inner">
+									<h4>About</h4>
+									<p>We are a team built by CS Students at USF. This is a website for our midterm project and you can find out the original data we are going to use for this project in our dataset.</p>
+								</div>
+							</div>
+							<div class="col-md-12 col-lg-6 footer_widget">
+								<div class="inner">
+									<h4>Credits</h4>
+									<ul>
+										<li><a href="https://www.themeum.com" target="_blank">Theme: Flat Theme</a></li>
+										<li><a href="https://getbootstrap.com/" target="_blank">Framework: Bootstrap</a></li>
+										<li><a href="https://www.freepik.com" target="_blank">Images: freepik</a></li>
+										<li><a href="https://unsplash.com/" target="_blank">Images: Unsplash</a></li>
+										<li><a href="https://fontawesome.com" target="_blank">Icon: FontAwesome</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="copyright-txt">
+									Copyright &copy; 2020. Datalization All rights reserved.
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+
+	<!-- Call our core javascript -->
+	<script type="text/javascript">
+
+		let file= "../granger_grouped_data.csv"
+		createAreaChart(file);
+	</script>
+
+</html>
