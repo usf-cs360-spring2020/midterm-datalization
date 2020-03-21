@@ -89,7 +89,8 @@ let drawEverything = function(data) {
 
 	// Needs a better name
 	const color = d3.scaleOrdinal()
-		.range(d3.schemeYlGnBu[7])
+		.range(d3.schemeSpectral[7].reverse())
+		// .range(["violet", "indigo", "steelblue", "red", "green", "yellow", "orange"])
 		.domain(groups);
 
 
@@ -97,6 +98,7 @@ let drawEverything = function(data) {
 	drawArea();
 	drawAxes();
 	drawLegend();
+	addInteractivity();
 
 	// Finally, we need to actually implement those functions
 	function drawArea () {
@@ -170,6 +172,48 @@ let drawEverything = function(data) {
 			.attr("class", "legend-labels")
 			.attr("transform", d=> translate(25, legendScale(d)+20))
 			.text(d => d);
+	}
+
+	function addInteractivity(){
+
+  
+		// used to test out interactivity in this cell
+		const status = html`<code>hover: none</code>`;
+
+		circles.on("mouseover.hover2", function(d) {
+			let me = d3.select(this);
+			let div = d3.select("body").append("div");
+
+			div.attr("id", "details");
+			div.attr("class", "tooltip");
+
+			let rows = div.append("table")
+			.selectAll("tr")
+			.data(Object.keys(d))
+			.enter()
+			.append("tr");
+
+			rows.append("th").text(key => key);
+			rows.append("td").text(key => d[key]);
+
+			// show what we interacted with
+			d3.select(status).text("hover: " + d.letter);
+		});
+
+		circles.on("mousemove.hover2", function(d) {
+			let div = d3.select("div#details");
+
+			// get height of tooltip
+			let bbox = div.node().getBoundingClientRect();
+
+			div.style("left", d3.event.clientX + "px")
+			div.style("top",  (d3.event.clientY - bbox.height) + "px");
+		});
+
+		circles.on("mouseout.hover2", function(d) {
+			d3.selectAll("div#details").remove();
+			d3.select(status).text("hover: none");
+		});
 	}
 };
 
