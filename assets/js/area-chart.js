@@ -5,14 +5,18 @@ let createAreaChart = function(file){
 	d3.csv(file, function(d) {
 
 		let res = {
+			// "call_date": dateParser(d["Call Date"]),
+			// "aid": +d["Aid Other Agency"],
+			// "chem_elec": +d["Chemical / Electrical"],
+			// "fire": +d["Fire"],
+			// "medical": +d["Medical"],
+			// "misc": +d["Misc Emergency"],
+			// "rescue": +d["Rescue"],
+			// "other": +d["Various Other"]
+
 			"call_date": dateParser(d["Call Date"]),
-			"aid": +d["Aid Other Agency"],
-			"chem_elec": +d["Chemical / Electrical"],
-			"fire": +d["Fire"],
-			"medical": +d["Medical"],
-			"misc": +d["Misc Emergency"],
-			"rescue": +d["Rescue"],
-			"other": +d["Various Other"]
+			"call_group": d["Custom Grouping"],
+			"count": +d["counts"]
 
 		};
 
@@ -30,22 +34,6 @@ let createAreaChart = function(file){
 let drawEverything = function(data) {
 
 	// First, let's create some constants for use latter 
-	
-	const fields = Object.keys(data[0]).filter( item => item != "call_group");
-
-	const groups = ["Various Other", "Rescue", "Misc Emergency", "Medical", "Fire", "Chemical / Electrical", "Aid Other Agency"];
-	const group_map = {
-		"aid": "Aid Other Agency",
-		"chem_elec": "Chemical / Electrical",
-		"fire": "Fire",
-		"medical": "Medical",
-		"misc": "Misc Emergency",
-		"rescue": "Rescue",
-		"other": "Various Other"
-	};
-
-	const total_emergencies = findMaxEmergencies(data); // Name is a bit misleading, it's actually the most emergencies in a given year.
-
 	const width = 1140; // ~960 for viz, ~130 for legend 
 	const height = 500;
 
@@ -59,10 +47,6 @@ let drawEverything = function(data) {
 	const plotWidth = width - margin.right - margin.left;
 	const plotHeight = height - margin.top - margin.bottom;
 
-	//Need to convert the data to a series
-	const series = d3.stack().keys(["aid", "chem_elec", "fire", "medical", "misc", "rescue", "other"])(data)
-	console.log(series)
-
 	// Get the SVG
 	const svg = d3.select("body").select("svg#viz")
 		.attr("width", width)
@@ -73,38 +57,49 @@ let drawEverything = function(data) {
 	const plot = svg.append("g").attr("id", "plot")
 		.attr("transform", translate(margin.left, margin.top));
 
+
+	const values = Array.from(d3.rollup(data, ([d]) => d.count, d => +d.call_date, d => d.call_group));
+	const groups = ["Various Other", "Rescue", "Misc Emergency", "Medical", "Fire", "Chemical / Electrical", "Aid Other Agency"];
+
+	const total_emergencies = findMaxEmergencies(data); // Name is a bit misleading, it's actually the most emergencies in a given year.
+
+	// convert the data to a series
+	const series = d3.stack()
+		.keys(groups)
+		.value(([, values], key) => values.get(key))
+		.order(d3.stackOrderNone)
+		(values);
+
 	// scalers can't be in a specific function, because they're used by all / multiple. :(
+	// x scale, which should be time
+	const x = d3.scaleUtc()
+		.domain(d3.extent(data, d => d.call_date))
+		.range([0, plotWidth]);
 
 	// y scale, total count
 	const y = d3.scaleLinear()
 		.domain([0, d3.max(series, d => d3.max(d, d => d[1]))])
 		.range([plotHeight, 0])
 
-
-	// x scale, which should be time
-	const x = d3.scaleUtc()
-		.range([0, plotWidth])
-		.domain(d3.extent(data, d => d.call_date));
-
-
 	// Area
-	const area =  d3.area()
-		.x(d => x(d.data.call_date))
+	let area = d3.area()
+		.x(d => x(d.data[0]))
 		.y0(d => y(d[0]))
 		.y1(d => y(d[1]));
 
 	// Needs a better name
-	const colorScale = d3.scaleOrdinal()
+	const color = d3.scaleOrdinal()
 		.range(d3.schemeYlGnBu[7])
 		.domain(groups);
 
-	// Now, let's call the key functions that actually do everything 
-	drawArea(data);
+
+	// // Now, let's call the key functions that actually do everything 
+	drawArea();
 	drawAxes();
 	drawLegend();
 
 	// Finally, we need to actually implement those functions
-	function drawArea (data) {
+	function drawArea () {
 		console.log("In draw Area")
 
 		let drawnArea = plot.append("g")
@@ -114,7 +109,7 @@ let drawEverything = function(data) {
 
 		drawnArea.enter().append("path")
 			.join("path")
-			.attr("fill", ({key}) => colorScale(group_map[key]))
+			.attr("fill", ({key}) => color(key))
 			.attr("d", area);
 
 	}
@@ -130,7 +125,7 @@ let drawEverything = function(data) {
 			.call(xAxis);
 
 		let yAxis = d3.axisLeft(y)
-			.tickFormat(d3.formatPrefix(".0", 1e3));
+			// .tickFormat(d3.formatPrefix(".0", 1e3));
 
 		plot.append("g")
 			.attr("id", "y-axis")
@@ -168,7 +163,7 @@ let drawEverything = function(data) {
 			.attr("transform", d=> translate(0, legendScale(d)+8))
 			.attr("width", 15)
 			.attr("height", 15)
-			.attr("fill", d => colorScale(d))
+			.attr("fill", d => color(d))
 
 		// Label each item in the legend
 		legendItem.enter().append("text")
@@ -188,15 +183,27 @@ let findMaxEmergencies = function(data){
 	// This helper function simply gets the total number of emergencies for each year, and finds the max of those
 	let years = {};
 
+	// for (let d of data) {
+	// 	let currYear = d.call_date.getFullYear();
+
+	// 	if (currYear in years) {
+	// 		years[currYear] = years[currYear] + d.aid + d.chem_elec + d.fire + d.medical + d.misc + d.rescue + d.other;
+	// 	}
+
+	// 	else {
+	// 		years[currYear] = d.aid + d.chem_elec + d.fire + d.medical + d.misc + d.rescue + d.other;
+	// 	}
+	// }
+
 	for (let d of data) {
 		let currYear = d.call_date.getFullYear();
 
 		if (currYear in years) {
-			years[currYear] = years[currYear] + d.aid + d.chem_elec + d.fire + d.medical + d.misc + d.rescue + d.other;
+			years[currYear] = years[currYear] + d.count;
 		}
 
 		else {
-			years[currYear] = d.aid + d.chem_elec + d.fire + d.medical + d.misc + d.rescue + d.other;
+			years[currYear] = d.count;
 		}
 	}
 

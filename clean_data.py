@@ -47,11 +47,12 @@ def main():
 
 	# This is where the magic happens. It groups by the desired columns (date and call type), 
 	# and gets the count of each call type. It then returns it as a df. 
-	print("Getting Counts")
-	final_df = relevant_df.groupby( ["Call Date", "Custom Grouping"]).size().unstack(fill_value=0).reset_index()
+	print("")
+	# final_df = relevant_df.groupby( ["Call Date", "Custom Grouping"]).size().unstack(fill_value=0).reset_index()
+	final_df = relevant_df.groupby( ["Call Date", "Custom Grouping"]).size().reset_index(name='counts')
 
 	print(final_df.head(3))
-	final_df.to_csv("granger_grouped_data.csv", index=False)
+	final_df.to_csv("granger_grouped_data_v2.csv", index=False)
 
 	print("Done!")
 
