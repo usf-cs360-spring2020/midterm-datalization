@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,14 +41,14 @@
 		.toolTip {
 			position: absolute;
 			display: none;
-			width: 220px;
+			min-width: 200px;
 			white-space: nowrap;
 			height: auto;
 			background-color: #ffffff;
 			border: 1px solid #2d3666;
-			padding: 10px;
-			font-size: 13px;
-			text-align: center;
+			border-radius: 2px;
+			padding: 5px 10px;
+			font-size: 12px;
 			margin-top: -10px;
 			transform: translate(-50%, -100%);
 			/* Backward compatibility */
@@ -80,7 +79,7 @@
 								<li class="has-child">
 									<a href="#">Prototypes</a>
 									<ul class="sub-menu">
-										<li><a href="/midterm-datalization/prototypes/bar-chart.html"><i class="fa fa-bar-chart"></i> Sum of Number of Records for each Neighborhooods 2010-2019</a></li>
+										<li><a href="/midterm-datalization/prototypes/bar-chart.html"><i class="fa fa-bar-chart"></i> Sum of Number of Records for each Neighborhoods 2010-2019</a></li>
 										<li><a href="/midterm-datalization/prototypes/line-chart.html"><i class="fa fa-line-chart"></i> The Averge Response Time and Arrive Time For Emergencies 2010-2019</a></li>
 										<li><a href="/midterm-datalization/prototypes/area-chart.html"><i class="fa fa-area-chart"></i> Count of Various Emergencies by Year: 2010-2019</a></li>
 									</ul>
@@ -88,7 +87,7 @@
 								<li class="has-child">
 									<a href="#">Implementations</a>
 									<ul class="sub-menu">
-										<li><a href="/midterm-datalization/implementations/bar.html"><i class="fa fa-bar-chart"></i> Sum of Number of Records for each Neighborhooods 2010-2019</a></li>
+										<li><a href="/midterm-datalization/implementations/bar.html"><i class="fa fa-bar-chart"></i> Sum of Number of Records for each Neighborhoods 2010-2019</a></li>
 										<li><a href="/midterm-datalization/implementations/line-chart-d3.html"><i class="fa fa-line-chart"></i> The Averge Response Time and Arrive Time For Emergencies 2010-2019</a></li>
 										<li><a href="/midterm-datalization/implementations/area-chart.html"><i class="fa fa-area-chart"></i> Count of Various Emergencies by Year: 2010-2019</a></li>
 									</ul>
@@ -104,16 +103,62 @@
 			<div class="page-title sp" style="background-image: url(../assets/img/home-banner.jpg)">
 				<div class="container text-center">
 					<h2>D3 Implementation</h2>
-					<p>Sum of Number of Emergencies for each Neighborhooods</p>
+					<p>Sum of Number of Emergencies for each Neighborhoods</p>
 				</div>
 			</div>
 			<div class="about-area sp">
 				<div class="container content-main">
-					<h2>Sum of Number of Emergencies for each Neighborhooods</h2>
+					<h2>Sum of Number of Emergencies for each Neighborhoods</h2>
 					<hr class="divider"\>
+					<h3>Data encoding</h3>
+					<p>In my bar chart implementation, the x-axis represents the sum of a number of emergencies, and the y-axis represents all major neighborhoods in San Francisco, while the color represents a different call type group.</p>
+					<p>So, the longer the bar is, the larger the amount of emergencies that have been recorded from that neighborhood.</p>
+					<h3 class="top-space">Guide of Interactivities</h3>
+					<p>Overall, this implementation has 4 major types of interactivities, including zooming, mouse enter and out, clicking and dragging.</p>
+					<h4>Zooming</h4>
+					<p>TThis implementation allows the user to zoom in to make the detail more readable.</p>
+					<p>There are two ways to zoom in the chart:</p>
+					<ol>
+						<li>Move the mouse cursor to white space of the chart's canvas, and double-click, it zooms in the chart by double of its size.</li>
+						<li>Move the mouse cursor to the chart's canvas, scroll up.</li>
+					</ol>
+					<p>To zoom out, simply scroll down the mouse.</p>
+					<img src="../assets/img/bar-interactivities/interactivity1.gif">
+					<h4 class="top-space">Hovering</h4>
+					<p>Hovering/mouse entering a color block will highlight the current color block(call type) in this neighborhood and fade out other color blocks(call types) from the same neighborhood.</p>
+					<p>Besides, it will display a tooltip, which covers the neighborhood name, the call type, the number of emergencies and the ratio of number among the current neighborhood.</p>
+					<p>Move the mouse out of the color block(call type) will cancel the highlight and make the tooltip disappear.</p>
+					<img src="../assets/img/bar-interactivities/interactivity2.gif">
+					<h4 class="top-space">Clicking</h4>
+					<p>This interactivity is very similar to the hover, but it listens to the mouse clicking. Clicking on a color block(call type) will highlight the current color blocks(call types) in all neighborhoods and fade out other color blocks(call types) from all the neighborhoods.</p>
+					<p>Also, it will display a tooltip, but it's a little different than the hovering one, because it covers the first 3 same information, but the last information is the ratio of number among the same call type from all neighborhoods.</p>
+					<p>Move the mouse out of the current block(call type) will cancel the highlight and make the tooltip disappear.</p>
+					<img src="../assets/img/bar-interactivities/interactivity3.gif">
+					<h4 class="top-space">Dragging</h4>
+					<p>The chart also allows readers to drag the bars up and down, the reason to do this is that they will be able to align the bar with the x-axis and use the axis as a ruler to determine the actual data of the bar.</p>
+					<p>To drag the chart, simply keep pressing the mouse on the white space of the chart's canvas and move the mouse up or down. Remember, don't click on the bars, otherwise, it will highlight the bar instead.</p>
+					<img src="../assets/img/bar-interactivities/interactivity4.gif">
+					<hr class="divider"\>
+					<h3 class="top-space">Implementation</h3>
 					<div class="chart-container">
 						<div class="d3-bar-chart"><svg width="960" height="1000"></svg></div>
 					</div>
+					<hr class="divider"\>
+					<h3 class="top-space">Discoveries</h3>
+					<ol>
+						<li>In order to answer the question: is the San Francisco Fire Department fully equipped to handle the multitude and wide range of emergencies that occur in San Francisco? The theme of our midterm project is to use data from the San Francisco fire department to visualize what types of emergencies occur most frequently, and in what parts of the city.</li>
+						<li>In my implementation, I demonstrate the sum of emergencies of different call types in different neighborhoods and the sum of emergencies occurring in what parts of the city.</li>
+						<li>Based on my implementation, we can find out that Tenderloin, South of Market, Mission and Financial District/South Beach have the largest amount of emergencies. While Seacliff, McLaren Park and Lincoln Park have very small records. So we know that the San Francisco Fire Department should pay more attention to the areas on the top, such as adding more people and equipment or arrange staff from the areas on the bottom.</li>
+						<li>What's more, among all types of call, it's obvious to see that the Potential Life-Threating has the most call and most already take up to the half among the 4 types. While the Fire only has a very small number. It means that most emergencies occurred may threaten people's life but few of them are caused by fire. So, the San Francisco Fire Department should consider preparing themselves for protecting citizens rather than preventing fire.</li>
+					</ol>
+					<hr class="divider"\>
+					<h3 class="top-space">Inspirations</h3>
+					<ol>
+						<li>I think my grouping is not decent enough, specifically, it should have more details about the types. For example, I can mention more about what is behind the Potentially Life-Threating, is it car accidences or factory explosion, etc.</li>
+						<li>In the first place, I didn't plan to use the zoom interactivity, because I think a tooltip is good enough. However, I realized that, for some small data, it's very hard to hover or click them as well. So I think adding a zooming functionality could help readers to select them. In this implementation, I chose to use the vertical zooming, which makes the bars wider, but I don't think it works like a charm, because some data is still very thin to see. Next time, I will try to make the bar longer/higher for a bar chart.</li>
+						<li>Although hovering and licking seem compatible with this implementation, I feel that using the same tooltip to display very similar information is confusing. Next time, I prefer to use a pop-up or another chart to display similar content.</li>
+						<li>Last but not least, wrangling the data or converting the original data into a more readable format, such as JavaScript object and array or a JSON object and organizing the data into a more desirable form is very helpful.</li>
+					</ol>
 				</div>
 			</div>
 		</main>
@@ -161,8 +206,8 @@
 		Declare and initialize global vars
 	*/
 	let dataset = d3.csv("data/bar.csv");
-	let neighborhooods_set = d3.map();
-	let neighborhooods = [];
+	let neighborhoods_set = d3.map();
+	let neighborhoods = [];
 	let records = [];
 	let color;
 	let legends = new Array();
@@ -170,36 +215,36 @@
 
 	/*
 		Initialize dataset
-		1. neighborhooods_set: a map to store all neighborhooods' name without duplication
-		2. neighborhooods: an array to store all neighborhooods' data
+		1. neighborhoods_set: a map to store all neighborhoods' name without duplication
+		2. neighborhoods: an array to store all neighborhoods' data
 		3. records: an array to store each record and its data
 	*/
 	dataset.then(function(data) {
-		// Go throug the data and store each neighborhoood and its data
-		data.forEach(function(neighborhoood) {
-			let name = neighborhoood.neighborhooods_analysis_boundaries;
-			let record = {call_type_group: neighborhoood.call_type_group, number_of_records: neighborhoood.number_of_records};
-			let total = parseInt(neighborhoood.number_of_records);
+		// Go throug the data and store each neighborhood and its data
+		data.forEach(function(neighborhood) {
+			let name = neighborhood.neighborhoods_analysis_boundaries;
+			let record = {call_type_group: neighborhood.call_type_group, number_of_records: neighborhood.number_of_records};
+			let total = parseInt(neighborhood.number_of_records);
 
-			if (neighborhooods_set.has(name)) {
-				neighborhooods_set.get(name).records.push(record);
-				neighborhooods_set.get(name).total += total;
+			if (neighborhoods_set.has(name)) {
+				neighborhoods_set.get(name).records.push(record);
+				neighborhoods_set.get(name).total += total;
 			} else {
-				neighborhooods_set.set(name, {name: name, records: [record], total: total});
+				neighborhoods_set.set(name, {name: name, records: [record], total: total});
 			}
 		});
 
 		// Convert the map to be a new array
-		neighborhooods_set.each(function(neighborhoood) {
-			neighborhooods.push(neighborhoood);
+		neighborhoods_set.each(function(neighborhood) {
+			neighborhoods.push(neighborhood);
 		});
 
-//								console.table(neighborhooods);
+//								console.table(neighborhoods);
 
-		// Break down each neighborhoood into smaller record and store them in a new array
-		records = neighborhooods.map(function(e) {
-			let neighborhoood = e;
-			let records = neighborhoood.records;
+		// Break down each neighborhood into smaller record and store them in a new array
+		records = neighborhoods.map(function(e) {
+			let neighborhood = e;
+			let records = neighborhood.records;
 			let start = 0;
 			let number = [];
 
@@ -210,7 +255,7 @@
 
 				result[0] = parseInt(start);
 				result[1] = end;
-				result["data"] = neighborhoood;
+				result["data"] = neighborhood;
 				result["key"] = key;
 
 				start = end;
@@ -253,7 +298,7 @@
 		   .attr("transform", "translate(100,0)")
 		   .attr("x", -100)
 		   .attr("y", 20)
-		   .text("Sum of Number of Emergencies for each Neighborhooods");
+		   .text("Sum of Number of Emergencies for each Neighborhoods");
 
 		let g = svg.append("g")
 			   .attr("transform", "translate(" + 192 + "," + 140 + ")");
@@ -261,14 +306,14 @@
 		// Initialize scale
 		let xScale = d3.scaleLinear()
 					.range([0, width])
-					.domain([0, d3.max(neighborhooods.map(function(d) {
+					.domain([0, d3.max(neighborhoods.map(function(d) {
 						return d.total;
 					}))]);
 
 		let	yScale = d3.scaleBand()
 					.range([0, height])
 					.padding(0.2)
-					.domain(neighborhooods.map(function(d) { 
+					.domain(neighborhoods.map(function(d) { 
 						return d.name;
 					}));
 
@@ -298,7 +343,7 @@
 		 .attr("text-anchor", "end")
 		 .attr("stroke", "#2d3666")
 		 .attr("class", "label")
-		 .text("Neighborhooods - Analysis Boundaries");
+		 .text("Neighborhoods - Analysis Boundaries");
 
 		// Create the bars' container
 		let bars = g.append("g")
@@ -308,9 +353,9 @@
 
 		// Create each bar:
 		// Column is the number
-		// Row is the neighborhoood
+		// Row is the neighborhood
 		let bar = bars.selectAll(".bar")
-		 .data(neighborhooods)
+		 .data(neighborhoods)
 		 .enter()
 		 .append("rect")
 		 .attr("class", "bar")
@@ -390,7 +435,7 @@
 		*/
 		var tooltip = d3.select("body").append("div").attr("class", "toolTip");
 
-		// Mouse over to highlight the current call type amount one neighborhoood
+		// Mouse over to highlight the current call type among one neighborhood
 		block
 		.on("mouseover", function(d) {
 			bars
@@ -412,11 +457,10 @@
 				})
 			  .html(function() {
 				let str = "";
-				str += d.data.name + "<br>";
-				str += d.key + "<br>";
-				str += (d[1] - d[0]) + "<br>";
-				str += "% amount this neighborhoood: <br>";
-				str += ((d[1] - d[0]) / d.data.total * 100).toFixed(1) + "%" + "<br>";
+				str += "Neighborhood: " + d.data.name + "<br>";
+				str += "Call type: " + d.key + "<br>";
+				str += "# of emergencies: " + (d[1] - d[0]) + "<br>";
+				str += "Ratio among this neighborhood: " + ((d[1] - d[0]) / d.data.total * 100).toFixed(1) + "%" + "<br>";
 
 				return str;
 			   });
@@ -435,7 +479,7 @@
 			tooltip.style("display", "none");
 		});
 
-		// Click to highlight the current call type amount all neighborhooods
+		// Click to highlight the current call type among all neighborhoods
 		block
 		.on("click", function(d) {
 			bars
@@ -474,11 +518,10 @@
 					return sum;
 				})();
 
-				str += d.data.name + "<br>";
-				str += d.key + "<br>";
-				str += d[1] - d[0] + "<br>";
-				str += "% amount all neighborhooods: <br>";
-				str += ((d[1] - d[0]) / total * 100).toFixed(1) + "%" + "<br>";
+				str += "Neighborhood: " + d.data.name + "<br>";
+				str += "Call type: " + d.key + "<br>";
+				str += "# of emergencies: " + (d[1] - d[0]) + "<br>";
+				str += "Ratio among all neighborhoods: " + ((d[1] - d[0]) / total * 100).toFixed(1) + "%" + "<br>";
 
 				return str;
 			   })());
