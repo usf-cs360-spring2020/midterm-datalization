@@ -98,7 +98,7 @@ let drawEverything = function(data) {
 	drawArea();
 	drawAxes();
 	drawLegend();
-	addInteractivity();
+	// addInteractivity();
 
 	// Finally, we need to actually implement those functions
 	function drawArea () {
@@ -174,47 +174,50 @@ let drawEverything = function(data) {
 			.text(d => d);
 	}
 
-	function addInteractivity(){
+	// function addInteractivity(){
 
-  
-		// used to test out interactivity in this cell
-		const status = html`<code>hover: none</code>`;
+	// 	let area = d3.select("g#id").selectAll("path");
 
-		circles.on("mouseover.hover2", function(d) {
-			let me = d3.select(this);
-			let div = d3.select("body").append("div");
+	// 	// used to test out interactivity
+	// 	let status = `<code>hover: none</code>`;
 
-			div.attr("id", "details");
-			div.attr("class", "tooltip");
+	// 	area.on("mouseover.hover2", function(d) {
+	// 		debugger;
+			
+	// 		let me = d3.select(this);
+	// 		let div = d3.select("body").append("div");
 
-			let rows = div.append("table")
-			.selectAll("tr")
-			.data(Object.keys(d))
-			.enter()
-			.append("tr");
+	// 		div.attr("id", "details");
+	// 		div.attr("class", "tooltip");
 
-			rows.append("th").text(key => key);
-			rows.append("td").text(key => d[key]);
+	// 		let rows = div.append("table")
+	// 			.selectAll("tr")
+	// 			.data(Object.keys(d))
+	// 			.enter()
+	// 			.append("tr");
 
-			// show what we interacted with
-			d3.select(status).text("hover: " + d.letter);
-		});
+	// 		rows.append("th").text(key => key);
+	// 		rows.append("td").text(key => d[key]);
 
-		circles.on("mousemove.hover2", function(d) {
-			let div = d3.select("div#details");
+	// 		// show what we interacted with
+	// 		d3.select(status).text("hover: " + d.letter);
+	// 	});
 
-			// get height of tooltip
-			let bbox = div.node().getBoundingClientRect();
+	// 	area.on("mousemove.hover2", function(d) {
+	// 		let div = d3.select("div#details");
 
-			div.style("left", d3.event.clientX + "px")
-			div.style("top",  (d3.event.clientY - bbox.height) + "px");
-		});
+	// 		// get height of tooltip
+	// 		let bbox = div.node().getBoundingClientRect();
 
-		circles.on("mouseout.hover2", function(d) {
-			d3.selectAll("div#details").remove();
-			d3.select(status).text("hover: none");
-		});
-	}
+	// 		div.style("left", d3.event.clientX + "px")
+	// 		div.style("top",  (d3.event.clientY - bbox.height) + "px");
+	// 	});
+
+	// 	area.on("mouseout.hover2", function(d) {
+	// 		d3.selectAll("div#details").remove();
+	// 		d3.select(status).text("hover: none");
+	// 	});
+	// }
 };
 
 
