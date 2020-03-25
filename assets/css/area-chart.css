@@ -1,10 +1,4 @@
-/*
-svg#viz {
- 
-	background-color: whitesmoke;
-	border-radius: 10px;
-}
-*/
+
 
 /* svg elements are styled differently from html elements */
 .single-line {
@@ -29,4 +23,18 @@ svg#viz {
 
 .legend-labels {
 	font-size: 10pt;
+}
+
+
+/* Interactivity Stuff */
+.tooltip {
+	position: absolute;
+	display: inline;
+	background-color: #ffffff;
+	border: 1px solid #2d3666;
+	border-radius: 2px;
+	padding: 5px 10px;
+	font-size: 12px;
+	margin-top: -10px;
+	transform: translate(-50%, -100%);
 }

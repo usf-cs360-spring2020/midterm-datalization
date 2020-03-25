@@ -92,17 +92,21 @@
 						<h5 class="section-title left">by Ian Granger, Mar 20, 2020</h5>
 
 						<p>
-							The goal of this implementation was to show the the increase in particular types of emergencies over time. While it is not quite as apparent here, in the implementation you could clearly see that the category for medical emergencies has grown steadily over the past decade, where as the others have remained relatively consistent. This would indicate that the SFFD should expect to handle more medical emergencies in the future. 
+							The goal of this implementation was to show the the increase in particular types of emergencies over time. In creating this implementation, I faced several hurdles in reducing the amount of data necessary to construct this graph. As a result, my final implementation is visually differnt than the prototype that I set out to reproduce. However, it does encode the same basic information, with the daily count for different emergencies on the y-axis, and the date on the x-axis. While the final product is different than the initial prototype, you can clearly see that the category for medical emergencies has grown steadily over the past decade, where as the others have remained relatively consistent. This would indicate that the SFFD should expect to handle more medical emergencies in the future. 
 						</p>
+
+						<h5>Data Encoding</h5>
 						<p>
-							To create this implementation, I first created a python script that would filter out irrelevant columns from the data, to cut down on the raw size of the file. This greatly increased performance and as a result the file was ~600KB. From there, I then use Call Type to create seven custom groups, which are "Various Other", "Rescue", "Misc Emergency", "Medical", "Fire", "Chemical / Electrical", "Aid Other Agency". While the data set did provide it's own groupings, I felt that it was not quite detailed enough to gain insight. If I was to expand this visualization in a real life scenario, my main change would probably be to consult someone in the SFFD to verify that these groupings are representative, however from a lay mans perspective they seem fairly logical.
+							To create this implementation, I first created a python script that would filter out irrelevant columns from the data, to cut down on the raw size of the file. This greatly increased performance and as a result the file was ~600KB. From there, I used Call Type to create seven custom groups, which are "Various Other", "Rescue", "Misc Emergency", "Medical", "Fire", "Chemical / Electrical", "Aid Other Agency". While the data set did provide it's own groupings, I felt that it was not quite detailed enough to gain insight. If I was to expand this visualization in a real life scenario, my main change would probably be to consult someone in the SFFD to verify that these groupings are representative, however from a lay mans perspective they seem fairly logical.
 						</p>
+
+						<h5>Interactivity</h5>
 						<p>
-							Obviously, my implementation does not look quite like I hoped. If I had more time I would gladly improve on it and add the interactivity that I had originally planned. However, this was my first time implementing a stacked area chart, and the size of the dataset was definitely a limiting factor in what I was able to get done.
+							Because of difficulties I faced elsewhere, I was unable to fully implement interactivity into this graph. From the prototype, my goal for interactivity was to implement some details on demand, to give exact counts and a ratio for each custom group. This ratio would give an idea of which groups were increasing over time. However, even though I was unable to fully implement this interactivity, the same general information can be gleaned by looking at the visualization itself. 
 						</p>
 
 						<hr class="divider"\>
-						<h5>D3 implementation</h5>
+						<h3>D3 implementation</h3>
 						
 						<svg id="viz">
 						</svg>

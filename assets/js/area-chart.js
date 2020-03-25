@@ -5,15 +5,6 @@ let createAreaChart = function(file){
 	d3.csv(file, function(d) {
 
 		let res = {
-			// "call_date": dateParser(d["Call Date"]),
-			// "aid": +d["Aid Other Agency"],
-			// "chem_elec": +d["Chemical / Electrical"],
-			// "fire": +d["Fire"],
-			// "medical": +d["Medical"],
-			// "misc": +d["Misc Emergency"],
-			// "rescue": +d["Rescue"],
-			// "other": +d["Various Other"]
-
 			"call_date": dateParser(d["Call Date"]),
 			"call_group": d["Custom Grouping"],
 			"count": +d["counts"]
@@ -25,7 +16,12 @@ let createAreaChart = function(file){
 	}).then(function(data) {
 
 		console.log(data);
-		// might have to group the data together by call group
+
+		// Must sort the data by call date before we can do anything
+		data.sort(function(x, y){
+			return d3.ascending(x.call_date, y.call_date);
+		})
+
 		drawEverything(data);
 	});
 }
@@ -57,16 +53,18 @@ let drawEverything = function(data) {
 	const plot = svg.append("g").attr("id", "plot")
 		.attr("transform", translate(margin.left, margin.top));
 
-
 	const values = Array.from(d3.rollup(data, ([d]) => d.count, d => +d.call_date, d => d.call_group));
 	const groups = ["Various Other", "Rescue", "Misc Emergency", "Medical", "Fire", "Chemical / Electrical", "Aid Other Agency"];
-
-	const total_emergencies = findMaxEmergencies(data); // Name is a bit misleading, it's actually the most emergencies in a given year.
 
 	// convert the data to a series
 	const series = d3.stack()
 		.keys(groups)
-		.value(([, values], key) => values.get(key))
+		.value(function([, values], key) {
+			if (isNaN(values.get(key))) {
+			 	return 0;
+			}
+			return values.get(key);
+		})
 		.order(d3.stackOrderNone)
 		(values);
 
@@ -90,7 +88,6 @@ let drawEverything = function(data) {
 	// Needs a better name
 	const color = d3.scaleOrdinal()
 		.range(d3.schemeSpectral[7].reverse())
-		// .range(["violet", "indigo", "steelblue", "red", "green", "yellow", "orange"])
 		.domain(groups);
 
 
@@ -98,7 +95,7 @@ let drawEverything = function(data) {
 	drawArea();
 	drawAxes();
 	drawLegend();
-	// addInteractivity();
+	addInteractivity();
 
 	// Finally, we need to actually implement those functions
 	function drawArea () {
@@ -174,87 +171,65 @@ let drawEverything = function(data) {
 			.text(d => d);
 	}
 
-	// function addInteractivity(){
+	function addInteractivity(){
 
-	// 	let area = d3.select("g#id").selectAll("path");
+		let area = svg.select("g#area").selectAll("path");
 
-	// 	// used to test out interactivity
-	// 	let status = `<code>hover: none</code>`;
+		area.on("mouseover.hover", function(d) {
+			// console.log("on hover, with data: ", d)
 
-	// 	area.on("mouseover.hover2", function(d) {
-	// 		debugger;
-			
-	// 		let me = d3.select(this);
-	// 		let div = d3.select("body").append("div");
+			let me = d3.select(this);
 
-	// 		div.attr("id", "details");
-	// 		div.attr("class", "tooltip");
+			let div = d3.select("body").select("div.site").append("div")
+				.attr("id", "details")
+				.attr("class", "tooltip")
+				.style("display", "inline-block");
 
-	// 		let rows = div.append("table")
-	// 			.selectAll("tr")
-	// 			.data(Object.keys(d))
-	// 			.enter()
-	// 			.append("tr");
+			let tmp_data = {
+				"Call Group": "Medical",
+				"Call Date": "3/24/15",
+				"count": 9
+			}
 
-	// 		rows.append("th").text(key => key);
-	// 		rows.append("td").text(key => d[key]);
+			// I can't get the table to show up, over everything else. 
+			// Probably due to it's positioning, but I'm not sure.
 
-	// 		// show what we interacted with
-	// 		d3.select(status).text("hover: " + d.letter);
-	// 	});
+			let rows = div.append("table")
+				.selectAll("tr")
+				.data(Object.keys(tmp_data))
+				.enter()
+				.append("tr");
 
-	// 	area.on("mousemove.hover2", function(d) {
-	// 		let div = d3.select("div#details");
+			rows.append("th").text(key => key);
+			rows.append("td").text(key => tmp_data[key]);
 
-	// 		// get height of tooltip
-	// 		let bbox = div.node().getBoundingClientRect();
+		});
 
-	// 		div.style("left", d3.event.clientX + "px")
-	// 		div.style("top",  (d3.event.clientY - bbox.height) + "px");
-	// 	});
+		area.on("mousemove.hover", function(d) {
+			console.log("In mousemove")
 
-	// 	area.on("mouseout.hover2", function(d) {
-	// 		d3.selectAll("div#details").remove();
-	// 		d3.select(status).text("hover: none");
-	// 	});
-	// }
+			let div = d3.select("div#details");
+
+			// get height of tooltip
+			let bbox = div.node().getBoundingClientRect();
+
+			console.log(d3.event.clientX, (d3.event.clientY - bbox.height))
+
+
+			div.style("left", d3.event.clientX + "px")
+			div.style("top",  (d3.event.clientY - bbox.height) + "px");
+		});
+
+		area.on("mouseout.hover", function(d) {
+			d3.selectAll("div#details").remove();
+		});
+	}
 };
 
 
 //Helper functions, to make life easier
 let translate = function(x, y) {
 	return 'translate(' + x + ',' + y + ')';
-}
-
-let findMaxEmergencies = function(data){
-	// This helper function simply gets the total number of emergencies for each year, and finds the max of those
-	let years = {};
-
-	// for (let d of data) {
-	// 	let currYear = d.call_date.getFullYear();
-
-	// 	if (currYear in years) {
-	// 		years[currYear] = years[currYear] + d.aid + d.chem_elec + d.fire + d.medical + d.misc + d.rescue + d.other;
-	// 	}
-
-	// 	else {
-	// 		years[currYear] = d.aid + d.chem_elec + d.fire + d.medical + d.misc + d.rescue + d.other;
-	// 	}
-	// }
-
-	for (let d of data) {
-		let currYear = d.call_date.getFullYear();
-
-		if (currYear in years) {
-			years[currYear] = years[currYear] + d.count;
-		}
-
-		else {
-			years[currYear] = d.count;
-		}
-	}
-
-	return d3.max(Object.values(years));
 }
 
 
